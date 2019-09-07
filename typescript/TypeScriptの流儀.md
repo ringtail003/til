@@ -144,3 +144,74 @@ const name1 = name as 'hoge'; // hoge型なのに値は'aaa'
 ```typescript
 const a = new User() as any as UserA;
 ```
+
+## コンパイラの合意
+
+この型であって欲しいとコンパイラに通達するために満たす必要最低限の条件。
+
+例えばArrary.filterの推論では型を絞り込む事ができない。
+
+```typescript
+type Male = { id: string; gender: 'male' };
+type Female = { id: string; gender: 'female' };
+type User = Male | Female;
+
+[
+  { id: '1', gender: 'male' },
+  { id: '2', gender: 'female' },
+].filter(user => user.gender === 'male'); // User[]
+```
+
+User Defined Type Guardを使うと後続の型解釈を操作する事ができる。
+
+```typescript
+[
+  { id: '1', gender: 'male' },
+  { id: '2', gender: 'female' },
+].filter((user): User is Male => user.gender === 'male'); // Male[]
+```
+
+実装を間違えたとしてもコンパイラに責任はない。
+Array.filterのコールバック関数はboolean型さえ返却すればコンパイラは合意する。
+このようなケースではプログラマが型安全を肩代わりする。
+
+```typescript
+[
+  ...
+]
+.filter((user): User is Male => user.gender === 'female'); // 誤り：Male[]
+```
+
+Non-null assertionはコンパイラを欺く悪い慣習という印象がある。
+
+```typescript
+const msg = 'hello' as string | null;
+const nullable = msg; // string | null;
+const nonNullable = msg!; // string;
+```
+
+```typescript
+const msg = null as string | null;
+msg!.toUpperCase(); // コンパイルエラーにならないがランタイムエラーになる
+
+const msg2 = 'str' as string | null;
+msg!.toUpperCase(); // コンパイルエラー
+```
+
+しかしコンパイラよりプログラマのほうが型に詳しい時には有効な手段となる。
+
+```typescript
+// getElementByIdの戻り値はHTMLElement|null
+document.getElementById('xxx')!.addEventListener('click', () => {});
+```
+
+つまりNon-null assertionはコンパイラを欺くためのものではなく、品質担保の意思表示に他ならない。品質担保の署名を信用しコンパイラは合意する。
+
+letをconstとして扱えるConst assertionというものがある。
+より厳格であるという署名を与えプログラマの意思表示に利用できる。
+この署名を行った場合はJavaScript本来の挙動とは異なる厳格さが与えられる事に注意しなければいけない。
+
+```typescript
+let user = 'taro' as const
+user = 'TARO'; // Error; JavaScriptとは異なる
+```
