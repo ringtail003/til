@@ -6,7 +6,7 @@ https://speakerdeck.com/takefumiyoshii/typescript-falseliu-yi
 
 スライドを読むだけだと情報が右から左に流れてしまうので簡略化しながら写経。
 
-## 型推論いろは
+# 型推論いろは
 
 実装から型推論が得られる。
 
@@ -81,7 +81,7 @@ function greet(user: User) {
 }
 ```
 
-## 攻防一体・型の策略
+# 攻防一体・型の策略
 
 実装による型推論だけでは不十分。どのように利用されるのかプログラマしか知り得ない策略があるから。
 型の付与はつまりコンパイラに策略を通達する事。
@@ -145,7 +145,7 @@ const name1 = name as 'hoge'; // hoge型なのに値は'aaa'
 const a = new User() as any as UserA;
 ```
 
-## コンパイラの合意
+# コンパイラの合意
 
 この型であって欲しいとコンパイラに通達するために満たす必要最低限の条件。
 
@@ -215,3 +215,141 @@ letをconstとして扱えるConst assertionというものがある。
 let user = 'taro' as const
 user = 'TARO'; // Error; JavaScriptとは異なる
 ```
+
+# 型の主従関係
+
+実装しているコードが「上流工程なのか・下流なのか」の意識を持つ。
+合意を得られた型が上流から流れてくるため。
+
+```typescript
+import { TYPE_A } from './types';
+export function addType(value: number) {
+  return { type: TYPE_A, value };
+}
+```
+
+`TYPE_A` が上流で定義されている場合、下流では型を付与しない方が良い。
+
+```typescript
+// types.ts
+export = {
+  TYPE_A: 'A',
+}
+
+// xxx.ts
+export function addType(value: number) {
+  return { type: TYPE_A, value };
+  // String Literalの'A'型が得られる
+}
+```
+
+上流下流はつまり依存関係で、型の主従関係を示す。
+下記のヘルパー関数のような純関数は依存関係がなく（import節を見れば明白）上流である。
+
+```typescript
+export function isNumberLikeString(value: string) {
+  return !value.match(/[^-^0-9^.]/g);
+}
+```
+
+※ 純関数（=純粋関数 =参照透過性）
+https://postd.cc/httpstaltz-comis-your-javascript-function-actually-pure/
+
+# 源流を辿る型定義
+
+中流工程において「攻めの攻略」が誤っていた場合、本来の正しい型が覆される事がある。
+全工程において「策略のルーツ」を伝搬することが望ましい。
+
+typeofは定義済みの実装から型を読み取るクエリー。
+実装推論と同じ結果を得る事ができ、型定義を付与してまわるより正確。
+
+```typescript
+type UserState = typeof userState;
+const userState = {
+  id: '',
+  name: '',
+  tasks: [] as Task[],
+};
+
+// UserState 
+{
+  id: string;
+  name: string;
+  tasks: Task[];
+}
+```
+
+Partialは全てのプロパティをOptionalに変換するUtility Types。
+
+```typescript
+type Injects = Partial<UserState>;
+
+// Injects
+{
+  id?: string | undefined;
+  name?: string | undefined;
+  tasks?: Task[] | undefined;
+}
+```
+
+Utility Typesによって中流構築が捗る。
+例えば次のようなファクトリ関数に使い所がある。
+
+```typescript
+function userStateFactory(injects?: Injects) {
+  return { ...userState, ...injects };
+}
+```
+
+typeofは関数にも適用できる。
+ReturnTypeもビルトインUtility Typesのひとつ。
+
+```typescript
+const type = ReturnType<typeof userStateFactory>;
+
+// 推論で得られる型
+{
+  id: string;
+  name: string;
+  tasks: Task[];
+}
+```
+
+型を伝搬する事で上流をリファクタした時、全てに伝搬するメリットがある。
+中流工程で上流の定義を再定義するような宣言をしてしまうとこの恩恵は受けられない。
+
+```typescript
+const userState = {
+  // id: '',
+  id: null as string | null,
+  name: '',
+  tasks: [] as Task[],
+};
+```
+
+Conditional Types は型の三項演算子。
+
+```typescript
+type IsNumber<T> = T extends number ? true : false;
+type T1 = IsNumber<1> // true
+type T2 = IsNumber<'2'> // false
+```
+
+Conditional Typesは比較対象型の部分導出が可能。
+組み込みUtility TypesのReturnTypeもこれを利用している。
+
+```typescript
+type ReturnType<T> = T extends (...args: any) => infer I ? I : any;
+// infer Iの部分が導出対象
+// Tが関数として評価できる場合infer Iに相当する型を導出できる
+```
+
+戻り値導出の他、引数の導出が可能になる。
+Conditional typesを組み合わせれば源流を辿る事ができる。
+
+```typescript
+type Argument2<T> = T extends (a1: any, a2: infer I) => any ? I : never;
+```
+
+下流工程は型を受け流すことが最も厳格（型定義を頑張らない）
+複雑な型定義は源流を辿るためにある。
