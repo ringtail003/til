@@ -241,16 +241,17 @@ src
     |   |  module.ts
     |      
     |- pages
-    |   |- components
-    |   |   |- units
-    |   |   |  |- AA1
-    |   |   |  |- module.ts
-    |   |   |- containers
-    |   |   |  |- BB1
-    |   |   |  |- module.ts
-    |   |   |- widgets
-    |   |   |  |- CC1
-    |   |   |  |- module.ts
+    |   |- {name}
+    |   |   |- components
+    |   |   |   |- units
+    |   |   |   |  |- AA1
+    |   |   |   |  |- module.ts
+    |   |   |   |- containers
+    |   |   |   |  |- BB1
+    |   |   |   |  |- module.ts
+    |   |   |   |- widgets
+    |   |   |   |  |- CC1
+    |   |   |   |  |- module.ts
     |   module.ts
     |   index.ts
     |   index.html
