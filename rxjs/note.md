@@ -173,3 +173,31 @@ https://www.learnrxjs.io/operators/multicasting/publish.html
 - https://www.learnrxjs.io/
 - https://gitbook.lacolaco.net/angular-after-tutorial/season-2-effective-rxjs/introduction
 - https://www.learnrxjs.io/concepts/rxjs-primer.html
+
+# RxJS Primer
+
+https://www.learnrxjs.io/concepts/rxjs-primer.html
+
+Observableはストリームまたは時間の経過とともにストリーム上に流れる値を示す。
+
+Observableを宣言するだけでは何も起こらない、すなわちColdである。
+
+## Subscription
+
+Subscriptionは蛇口のようなもの。Observableで水の流れを準備し、誰かがハンドルをひねれば水が流れる。
+Subscriptionを作成するにはsubscribeメソッドを呼ぶ。
+どのように対話するのかはovserverが決定する。
+
+下記はイベント版lodashのような悪い例。いわゆるunicast。
+
+```typescript
+const subscription = myObservable.subscribe(event => console.log(event));
+
+const secondSubscription = myObservable.subscribe(event => console.log(event));
+
+subscription.unsubscribe();
+secondSubscription.unsubscribe();
+```
+
+RxJSのObservableはデフォルトでColdまたはunicast。
+hotまたはmulticastに変換できる。
