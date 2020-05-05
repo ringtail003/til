@@ -6,7 +6,7 @@
 $ cd ~/.ssh
 $ ssh-keygen 
 Generating public/private rsa key pair.
-Enter file in which to save the key (/Users/matsuoka/.ssh/id_rsa): {user2.github}
+Enter file in which to save the key (/Users/matsuoka/.ssh/id_rsa): user2.github
 Enter passphrase (empty for no passphrase): {任意のパスワード入力}
 Enter same passphrase again: {任意のパスワード入力}
 Your identification has been saved in user2.github.
@@ -21,7 +21,7 @@ $ vi config
 ```
 
 ```
-Host {user2-github} {user2-github.com}
+Host user2-github.com
   User git
   HostName github.com
   IdentityFile ~/.ssh/{user2.github}
@@ -30,13 +30,13 @@ Host {user2-github} {user2-github.com}
 ```
 
 ```bash
-$ ssh-add {user2.github}
+$ ssh-add user2.github
 ```
 
 ## GitHub側の設定を追加
 
 ```
-$ pbcopy < {user2.github}.pub
+$ pbcopy < user2.github.pub
 ```
 
 このページで追加する。
@@ -53,7 +53,7 @@ $ git config --local user.email {user2@gmail.com}
 ## GitHubに接続できる事を確認
 
 ```bash
-$ ssh -T git@{user2-github}.com
+$ ssh -T git@user2-github.com
 Hi {user2}! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
