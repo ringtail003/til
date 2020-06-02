@@ -1,0 +1,7 @@
+![](https://via.placeholder.com/80/a6b3b1/FFFFFF/?text=%20)
+![](https://icongr.am/devicon/angularjs-plain.svg)
+![](https://icongr.am/simple/github.svg)
+![](https://icongr.am/entypo/emoji-sad.svg)
+![](https://icongr.am/entypo/typing.svg)
+![](https://icongr.am/entypo/github.svg)
+![](https://icongr.am/entypo/bell.svg)
