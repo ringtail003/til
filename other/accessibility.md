@@ -468,5 +468,101 @@ CodePen のサンプルを見るとアウトラインとは `<section>` など�
 したがってこれらを複雑に組み合わせたテーブルではユーザーが現在位置とタイトルを推論しながらコンテンツを探る必要がある。
 これはスクリーンリーダーの欠点であるが、テーブルをシンプルに保つ事によってこの問題を回避する事ができる。
 
+## セマンティクスとテーブル
+
+しばしばテーブルを視覚的にカスタマイズする事がある。
+例えば全てのセルを縦に積み上げたりする事もできる。
+
+1列しかないテーブルかつ `<th><td><td> <th><td><td>` のように縦にセルを並べた場合、セマンティクスは失われる。
+これは ARIA を使って補完する事ができる。
+
+```html
+<thead role="presentation">
+  <tr role="row">
+    <th role="columnheader">
+      ...
+<tbody role="presentation">
+  <tr role="row">
+    <th role="rowheader">
+      ...
+    <th role="gridcell">
+```
+
+不必要な情報は `presentation` を付与しセマンティクスの概要から除外している。
+このように要素のレイアウトを変更する時は、ARIA を用いてセマンティクスを再適用する事を忘れないようにする事。
+
+## レスポンシブ
+
+スマホ普及により小さい画面でテーブルを表示するレイアウトがよく使われるようになった。
+一般的に水平スクロールを避ける方向にある。
+
+ブラウザを小さくリサイズした時に縦並びのセルに変形するようなレイアウトでは、縦並びになったヘッダが意味をなさない事がある。
+もはや意味をなさない構造となったセルは `aria-hidden="true"` でスクリーンリーダーで非表示にする事ができる。
+
+また JavaScript を使用して `aria-hidden` と共にセルに `Description: xxx` `Name: yyy` のようにプレフィクスを付ける事ができればアクセシビリティの完成度を高くする事ができる。このようにテーブル構造や ARIA にこだわらず柔軟に便利なものを提供する事も考慮する事。
+
+## div でテーブル
+
+※実験なので真似しない事
+下記のようにすると外観がテーブルでスクリーンリーダー対応のレイアウトを作る事ができる。
+
+```html
+<div aria-describeby="caption" class="table" role="grid">
+    <div class="tr" role="row">
+      <div class="th" role="columnheader">
+```
+
+しかし特定の `role="row"` を `<div>` でラップしたりするとスクリーンリーダーは別のテーブルとして認識してしまい行数の読み上げが見た目と一致しない事がある。
+
+```html
+<div aria-describeby="caption" class="table" role="grid">
+  <div class="tr" role="row">
+    <div class="th" role="columnheader">
+  ...
+  <div class="favorite"> <---- これ
+    <div class="tr" role="row">
+      <div class="th" role="columnheader">
+```
+
+この場合は追加のコンテナに `role="presentation"` を追加する事で意味をなさなくなり、スクリーンリーダーがテーブルとして認識する事ができる。
+このようにすればスクリーンリーダーに対しての考慮は完全になるが、しかしこれは ARIA の誤用なので実際に使わない事。
+セマンティクスを破壊し ARIA で補完する事は推奨されない。
+
+またスクリーンリーダーのユーザーにとってヘッダ行はとても重要なものなので必ず構造に付け加えるのが望ましい。
+視覚的に不必要な場合は画面外にスクリーンリーダー用のヘッダを設ければ良い。
+
+## フォーム
+
+補助ツールではフォームの概要や要素を検出する。
+ラベルは必ず設定し `<legend>` のない `<fieldset>` などフォームの誤った使い方をしないようにする。
+
+HTML 構造の誤りを警告してくれるブックマークレット
+https://www.accessibility-developer-guide.com/setup/browsers/bookmarklets/html-codesniffer/
+
+- ラベルを必ず設定する
+- `<legend>` と `<fieldset>` でグループ化する
+- `<optgroup>` で選択肢のブループにラベル付けする
+
+### スクリーンリーダーのバグ
+
+`<input>` の `maxlength` などはスクリーンリーダーで読み上げられない事がある。
+このようなケースではラベルで補完する必要がある。
+
+### Tab キーの配慮
+
+視覚的に無効となっている要素でも Tab キーでフォーカスを受け付けてしまう事がある。
+
+### disabled なボタン
+
+スクリーンリーダーがフォームの終端を検出できないため混乱する。
+一般的に disabled にする事は避けるべき。
+
+### label
+
+`for` の代わりに `<label>` で囲む方法が用いられる事があるが問題を起こす事があり、推奨しない。
+
+標準の HTML でフォームを構成する事、それでも不足する場合はスクリーンリーダーのためにラベルを追加する。
+
+
 次ここから
-https://www.accessibility-developer-guide.com/examples/tables/layout-changes/
+https://www.accessibility-developer-guide.com/examples/forms/bad-example/
