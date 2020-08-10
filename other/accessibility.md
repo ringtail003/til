@@ -563,6 +563,441 @@ https://www.accessibility-developer-guide.com/setup/browsers/bookmarklets/html-c
 
 標準の HTML でフォームを構成する事、それでも不足する場合はスクリーンリーダーのためにラベルを追加する。
 
+### Bad patern
 
-次ここから
-https://www.accessibility-developer-guide.com/examples/forms/bad-example/
+- `<form>` タグで囲われていない
+- `<label>` でなく `<div>` を使う
+- `<label>` とコントロールを関連付ける `for` がない
+- `<fieldset>` `<legend>` を用いないグルーピング
+- `<input type="submit">` または `<button type="submit">` がない
+- 全ての要素がフォーカス可能でない（キーボード操作ができない）
+  - `tabindex="0"` を付与してフォーカス可能にする
+- 疑似ボタンに `role="button"` を付与していない
+
+### fieldset/legend
+
+ラジオボタン・チェックボックスは常に `<fieldset>` でグループ化するべき。
+
+ラジオボタンは同じ `name` が付与される事からも分かるように一定の意味をもつグループのため `<fieldset>` で囲う事が望ましい。
+チェックボックスは「利用規約に同意する」などひとつしかないものも存在するが、それでも `<fieldset>` で囲う事が理にかなったケースが多い。
+
+スクリーンリーダーによっては個々のラジオボタンの選択肢を `<legend>` とともに読み上げるものもあるため、長すぎるテキストは用いない事。
+
+`<fieldset>` の先頭に `<legend>` を必ず持ってくる事。そうしないとスクリーンリーダーの読み上げが難しくなる。
+
+視覚的な理由で `<fieldset>` を用いる事ができない場合は `role="group"` を付与する。
+この場合ラベルは `aria-describedby`になる。
+
+### 見出し
+
+HTML5.2から `<legend>` で見出しを作る事が許容されるようになった。
+サンプルコードを見るとこのようになっている。
+
+```html
+<fieldset>
+  <legend><h2>xxx</h2></legend>
+<fieldset>
+```
+
+### 非アクティブコンテンツ
+
+タブキーで移動できない要素を見落としてしまう事がある。
+フォーカスできない要素を補足するのに適した方法はコントロールに `aria-describedby` を使う事である。
+
+```html
+<input type="checkbox" aria-describeby="gender_male" id="male">
+<label for="male">...</label>
+```
+
+過度なスクリーンリーダーの読み上げは精神障害の人にストレスになる事もある。
+またヘッダーや段落など操作できない要素似全て `tabindex="0"` を付与すると混乱を招く原因になる。
+
+labelでラップすると `for` 属性の必要がなくなる。
+しかしこれらは、チェックボックスなどのためのマウスのクリック領域が広がってしまう事と、スクリーンリーダーでブラウザごとにバグがあり正しく動作しない。
+
+```html
+<label>
+    name
+    <input type="text">
+    please enter your full name.
+<label>
+```
+
+このため `<label>` と要素を分離し `for` を付ける事を推奨する。
+
+### バリデーションエラー
+
+エラーのある要素にフォーカスする：スクリーンリーダーがその項目についてアナウンスするため良いアプローチ。
+下記のようなHTMLでバリデーションエラーがある際にその項目にフォーカスするのが良い例とされている。
+
+```html
+<fieldset>
+  <legend>Gender></legend>
+  <div>
+    <input id="gender_male" type="radio">
+    <label for="gender_male">Male</label
+  </div>
+  <p id="gender_description" class="error">Please tell us your gender!</p>
+</fieldset>
+```
+
+フォームと離れた場所にエラーを表示する例。
+説明が記載している箇所を `aria-describedby` で表明している。
+またこのフォームでもバリデーションエラーの際にその項目にフォーカスしている。
+このようにすると、どの項目でエラーが発生したのか、またAnchorを利用してその項目に簡単に移動する事ができる。
+
+```html
+<fieldset>
+  <legend>Errors</legend>
+  <a href="#name" id="name_description" class="error">Please enter your name</a>
+</fieldset>
+
+<form>
+  <div>
+    <label for="name">name</label>
+    <input id="name" type="text" aria-describedby="name_description">
+  </div>
+</form>
+```
+
+例えばこれに "There are three errors." などテキストを表示して、さらにそのテキストに `tabindex="0"` を追加するとより便利なものになる。
+
+エラーメッセージにも気を付ける事。「入力形式が正しくありません」よりも「YYYY/MM/DD形式で入力してください」のほうがはるかに有用。
+
+### Required(*)
+
+多くのスクリーンリーダーは特殊文字を無視するため、必須である事を "*" で表現すると手がかりが見つからなくなってしまう。
+
+ARIAによる解決：
+必須である事を `aria-describedby` で表明し、読み上げに紛らわしい `*` は `aria-hidden` で無視させる。
+しかしこれにはスクリーンリーダーのフォーカスモードで `aria-hidden` が無視されてしまうという弱点がある。
+
+```html
+<input aria-describedby="required-description" type="text" name="name">
+
+<p id="required-description">
+  <span aria-hidden="true">*</span>
+  Required field
+</p>
+```
+
+HTMLによる解決：
+紛らわしいアスタリスクをスクリーンリーダーから隠す事ができる。
+`focusable` IE独自の属性らしい。 `tabindex="-1"` としてもフォーカスされてしまうためこれを避けるための属性らしい。
+
+```html
+<label for="name">
+  FullName
+  <svg class="required" focusable="false"><!-- アスタリスクの画像 --></svg>
+</label>
+
+<input id="name" type="name">
+```
+
+どの項目にフォーカスが可能なのか調べるこんなライブラリもある。
+https://allyjs.io/index.html
+
+HTMLによる解決２：
+`required` 属性は正しいHTMLの使い方。
+ただしスクリーンリーダーの動作が不安定な事と、ブラウザが標準で出すメッセージが説明に乏しいため、hiddenなテキストを用いたほうがより親切。
+
+```html
+<input id="name" type="name" require>
+```
+
+### HTML5のバリデーション
+
+- implicit
+  - `type="email"` などのバリデーション
+- explicit
+  - `requied` `pattern` などのバリデーション
+  
+フォームの送信ボタンを押した時、ブラウザが無効な項目にフォーカスを当ててくれるメリットもある。
+ただしHTML5のエラーを読み上げるスクリーンリーダーもあればそうでないものもあり、完全に利便性を提供するものではない。
+
+`pattern` にはその内容を説明する `title` を用いると良い。
+
+```html
+<input id="password" pattern="..." requierd="" title="Minimum 6 characters containing lowercase, uppercase...">
+```
+
+`aria-required` `aria-invalid` などHTML5を補足するARIAも存在するが、HTML5でシンプルに実装する方を推奨する。
+クライアントサイドのHTML5によるバリデーションが不要、かつスクリーンリーダーのユーザーにバリデーションエラーを伝えたい時はARIAを用いると良い。
+
+### テーブル内のコントロール
+
+しばしばテーブルの中でチェックボックスやテキスト入力を受け付けたい事がある。
+データが表形式でないケースではテーブルを用ないようにする事。
+
+テーブル内のコントロールはタブキーによってフォーカスできる。
+これらには `<label>` でラベル付けができる。
+
+```html
+<td>
+  <label class="visually-hidden" for="post_comment">Comment</label>
+  <textarea id="post_comment"></textarea>
+</td>
+```
+
+ARIAを用いるとこうなる：
+HTML構造を用いたlabelを使った例に比べ、スクリーンリーダーの読み上げは不安定になる。
+そのためHTMLによる解決のほうが推奨されている。
+
+```html
+<tr>
+  <th id="comment_header">
+<tr>
+<tr>
+  <td>
+    <textarea aria-describedby="comment_header"></textarea>
+  </td>
+</tr>
+```
+
+## Widget
+
+HTMLで実現できないパーツを「ウィジェット」として定義する。
+アクセシビリティ上はウィジェットを「POC: Proof of concepts」として呼んでいる。
+
+### tooltip
+
+W3CのドキュメントでWidgetとして定義されている。
+https://www.w3.org/TR/wai-aria-practices/#tooltip
+
+- 表示・非表示は `hidden` 属性で表現する事
+- エスケープキーで非表示になる事
+- 冗長な情報である場合は `aria-hidden` を使ってスクリーンリーダーから隠す
+- ツールチップのトグルには `aria-expanded` を用いて拡張する事を通知する
+
+下記の例ではホバーでなくクリックによってツールチップを表示している。
+ツールチップ内のコンテンツにはタブキーで移動する事ができるため、詳細情報のリンクなどにアクセスする事ができる。
+https://www.accessibility-developer-guide.com/examples/widgets/tooltips/_examples/manually-displayed-tooltip/
+
+### tablist
+
+W3C仕様
+https://www.w3.org/TR/wai-aria-practices/#tabpanel
+
+radioを用いたタブリストの例
+https://www.accessibility-developer-guide.com/examples/widgets/tablists/_examples/tablist-with-radio-buttons/
+
+- アクティブ・非アクティブを明確にする事
+- `input type="radio"` を用いてタブリストを作成すると堅牢
+  - 状態が変わるたびにスクリーンリーダーがその状態を通知する
+- タブリストにフォーカスがある時、矢印キーでの移動が可能
+
+
+Carousel/Accordion等、ここから先はスキップ。
+実装する時にW3C仕様と重ねてキーボード操作などフォールバックを設定すれば良いと思われるので。
+
+## Sensible ARIA usage
+
+### Label
+
+スクリーンリーダーの読み上げ：Google. Link.
+
+```html
+<a href="...">Google</a>
+```
+
+スクリーンリーダーの読み上げ：No Bing!. Link.
+
+```html
+<a href="..." aria-label="No,Bing!">Google</a>
+```
+
+スクリーンリーダーの読み上げ：No Bing!.
+
+```html
+<a href="..." aria-labelledby="bing">Google</a>
+
+<div id="bing" class="visually-hidden">No,Bing!</div>
+```
+
+`aria-label` はテキスト検索の対象にならない。
+`aria-labelledby` を通して検索される。
+またフォーカスモードで読み上げられるかなど、ブラウザ間で挙動が異なる。
+
+HTML標準のラベリング機能を使う事が推奨される
+
+- `<button>ここがラベル</button>`
+- `<img alt="ここがラベル">`
+- `<table><caption>ここがラベル</caption></table>`
+- `<label for="...">ここがラベル</label>`
+- `<h1>ここがページのラベル</h1>`
+
+視覚的に表示されているラベルより、スクリーンリーダー向けにより詳細な情報提供が必要な場合はARIAを用いたラベリングが有効なケースがある。
+
+```html
+<button aria-label="opens a high resolution version">Zoom</button>
+```
+
+しかしARIAを用いて限定的なユーザーに情報を表示するより、すべてのユーザーに情報提供するほうが有効。
+たとえばtooltipを用いた補足情報など。
+
+### Describedby
+
+スクリーンリーダーの読み上げ：The world's best known search engine.Link.
+
+```html
+<a href="..." aria-describedby="description">
+  Google
+</a>
+
+<div id="description" class="visually-hidden">
+  The world's best known search engine
+</div>
+```
+
+`aria-describedby` はスペース区切りで複数設定する事もできる。
+
+```html
+<a href="..." aria-describedby="description description2">
+```
+
+- `aria-describedby` はフォーカスモードでのみ動作するため、非フォーカス要素に設定しても意味がない
+- 一部のスクリーンリーダーはキーボード操作しないと内容が読み上げられないため煩雑
+- `aria-describedby` の説明テキストはテキスト検索の対象にならない
+
+このため通常のHTML要素には用いず、インタラクティブな要素（バリデーションエラーなど）に用いるのが推奨。
+
+### Expanded
+
+意味論として `aria-expanded` は現在の状態とその切替ができる事を通知する適した選択である。
+
+スクリーンリーダーの読み上げ：Toggle. button collapsed.
+（状態が変更されるとスクリーンリーダーがそれを通知する）
+
+```html
+<button aria-expanded="false">
+  Toggle
+</button>
+```
+
+似たようなものに `aria-haspopup` がある。
+
+スクリーンリーダーの読み上げ：Toggle. button has menu.
+しかしこれはスクリーンリーダーが状態の変更を通知しない。JSで `aria-haspopup="false"` を設定しても意味がない。
+したがって `aria-expanded` との併用を推奨する。
+
+```html
+<button aria-haspopup="true">
+  Toggle
+</button>
+```
+
+- tooltip, accordions, autocompletes, dropdowns, dialogs などに `aria-expanted` を用いるのは有用
+- トグル機能を持つ要素と近い位置に設定する
+- 状態が切り替わった時に最初の要素にフォーカスする
+- ページの更新機能を持つ要素には設定しない
+  - open/close状態のトグルボタン： `aria-expanded` を使うべき
+  - refreshボタン：使わない
+- チェックボックスがこの代替となるため、その使用も検討する事
+
+### Pressed
+
+例えば「再生」「一時停止」などアクティブな状態に意味を持つ要素がある。
+そのようなケースでは `aria-pressed` が適した選択といえる。
+
+スクリーンリーダーの読み上げ：Toggle. Button not pressed.
+JSでtrueに変更されると、スクリーンリーダーで変更が通知される。
+
+```html
+<button aria-pressed="false">
+  Toggle
+</button>
+```
+
+- チェックボックスがこの代替となるため、その使用も検討する事
+
+似たような属性として `aria-selected` がある。
+こちらは特定のロール（`role="tablist"` など）と一緒に使用する条件がある。
+
+また何らかを拡張する機能を持つ要素は `aria-expanded` を使用する事。
+
+### Current
+
+スクリーンリーダーの読み上げ：Home. Link Blog. Current link.
+
+```html
+<ul>
+  <li><a href="...">Home</a></li>
+  <li><a href="..." aria-current="true">Blog</a></li>
+  <li><a href="...">Shop</a></li>
+  <li><a href="...">Contact</a></li>
+</ul>
+```
+
+`aria-current` にはboolean値以外にも `page（現在のページ）` `step（現在のプロセスにおけるステップ）` `location（コンテキストにおけるカレント）` などさまざまな値が設定できる。
+スクリーンリーダーによって `aria-current="true"` と `aria-current="false"` に違いがないなどの問題も存在する。（このケースでは属性を削除するほうが望ましい）
+
+そしてかなりスクリーンリーダー上も最近対応が始まったばかりのため、古いスクリーンリーダーでは対応していない事もある。
+
+`aria-current` はアクセシビリティ的にも非推奨。
+
+スクリーンリーダー用のラベリングと `visually-hidden` を使って視覚的にそれを隠す方法が推奨されている。
+
+```html
+<li>
+  <span class="visually-hidden">Currnet page:</span>
+  Element
+</li>
+```
+
+### Hidden
+
+`aria-hidden` を使うと視覚的に要素を残したまま、スクリーンリーダーの読み上げを無視させる事ができる。
+
+スクリーンリーダーの読み上げ：なし
+
+```html
+<p aria-hidden="true">
+  Hello
+</p>
+```
+
+またその子要素にも特性が引き継がれる。
+
+```html
+<p aria-hidden="true">
+  Hello
+  <p aria-hidden="false">falseにしても意味がない</p>
+</p>
+```
+
+- フォーカス可能な要素に指定してはいけない
+- `aria-describedby` で参照された要素は `aria-hidden` を用いても非表示にならない
+  - スクリーンリーダーのブラウザモードとフォーカスモードで挙動に違いがある
+
+そもそも限定的なユーザーだけに隠すという事が良いのかどうか、ソリューションを見直す事。
+
+### Presentation
+
+何らかの理由で要素を削除する場合に `role="presentation"` を用いる事ができる。
+そしてこれはIEでは機能しない。
+
+スクリーンリーダーの動作：この要素に移動できない。
+
+```html
+<a role="presentation">
+  Hello folks!
+</a>
+```
+
+また `role="presentaion"` は意味論上から要素を削除するだけで、要素はそのまま残る。
+例えば上記の `<a>` の例ではスクリーンリーダーの読み上げでは無視されるが、フォーカス可能でありクリックするとリンクを開く事ができる。
+
+HTML標準の要素を使ってページを構成する事、`role="presentaion"` はエッジケースでごくわずかに必要とされるだけである。
+
+### Alert
+
+`role="alert"` は新しく追加された要素のコンテンツを強制的にアナウンスする事ができる。
+ユーザーが閲覧中のコンテンツを何度も中断するため、乱発によって不快なものとなる可能性がある。
+別タブでブラウジングしている場合でもスクリーンリーダーによって通知されてしまう。
+
+またFireFoxではアラートの代替としてpoliteなどの機能を用意しているが、スクリーンリーダーの対応が追いついていない。
+
+`role="alert"` はユーザーアクションの即座な変更を通知するに留めるべき。
+例えばTを入力した時に「検索結果が2件にフィルタされました」など。
+
+おわり。
