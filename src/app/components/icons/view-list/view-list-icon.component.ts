@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'view-list-icon',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view-list-icon.component.scss'],
 })
 export class ViewListIconComponent implements OnInit {
+  @Input() hoge = '';
+
   constructor() {}
 
   ngOnInit() {}

@@ -9,7 +9,7 @@ body {
   font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
     "Hiragino Sans", Meiryo, sans-serif;
     
-  padding-top: 30px;
+  padding-top: 5rem;
   background-color: #545454;
   color: rgb(255, 251, 251);
 }
@@ -18,17 +18,18 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  height: 30px;
+  height: 5rem;
   width: 100%;
   background-color: #4c4b4b;
   color:#f9e808;
   font-weight: 900;
   font-size: 1.5rem;
-  padding: 1.5rem;
+  padding: 2rem;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
+  box-sizing: border-box;
 }
 
 .container {
@@ -36,12 +37,21 @@ header {
   grid-template-columns: 15% 70% 15%;
 }
 
+.sidebar {
+  padding: 1em;
+  color: #272822;
+  font-weight: 600;
+}
+
 .content {
-  margin-top: 1rem;
 }
 
 h1 {
-  padding: 1em 0 0.5em 0;
+  padding-bottom: 1.5em;
+  font-weight: 700;
+  font-size: 170%;
+  color: #272822;
+  margin-block-start: 0.4em;
 }
 
 h2 {
@@ -60,4 +70,17 @@ h3 {
 
 svg {
   width: 1.5rem;
+  &:hover {
+    color: #ffffff;
+    cursor: pointer;
+  }
+}
+
+a {
+  color: #f9e808;
+  font-weight: 500;
+  &:hover {
+    color: #e2aa07;
+    cursor: pointer;
+  }
 }
