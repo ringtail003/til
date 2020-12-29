@@ -1,7 +1,4 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router, ROUTES } from '@angular/router';
-import { ScullyRoute, ScullyRoutesService } from '@scullyio/ng-lib';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-blog',
@@ -11,15 +8,7 @@ import { Observable } from 'rxjs';
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class BlogComponent implements OnInit {
-  links$: Observable<ScullyRoute[]> = this.scully.available$;
+  ngOnInit() {}
 
-  ngOnInit() {
-    this.links$.subscribe((links) => console.log(links));
-  }
-
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private scully: ScullyRoutesService
-  ) {}
+  constructor() {}
 }
