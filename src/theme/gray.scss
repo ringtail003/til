@@ -1,0 +1,63 @@
+@import '~prismjs/plugins/toolbar/prism-toolbar.css';
+@import '~prismjs/themes/prism-okaidia';
+
+html {
+  font-size: 15px;
+}
+
+body {
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans", Meiryo, sans-serif;
+    
+  padding-top: 30px;
+  background-color: #545454;
+  color: rgb(255, 251, 251);
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 30px;
+  width: 100%;
+  background-color: #4c4b4b;
+  color:#f9e808;
+  font-weight: 900;
+  font-size: 1.5rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 15% 70% 15%;
+}
+
+.content {
+  margin-top: 1rem;
+}
+
+h1 {
+  padding: 1em 0 0.5em 0;
+}
+
+h2 {
+  border-bottom: solid 1px #ffffff;
+  padding: 0.5em 0;
+  font-size: 140%;
+}
+
+h3 {
+  font-size: 140%;
+}
+
+::marker {
+  font-size: 1.2em;
+}
+
+svg {
+  width: 1.5rem;
+}
