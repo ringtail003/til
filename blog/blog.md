@@ -2,8 +2,7 @@
 title: blog
 description: 'blog description'
 published: true
-slugs:
-    - ___UNPUBLISHED___kj97x5tg_frJyhRqVJmw3QaaQePzGs0jbw3FIEVsH
+updatedAt: 2020-12-27
 ---
 
 # blog

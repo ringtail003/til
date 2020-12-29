@@ -10,7 +10,8 @@ import { map, tap } from 'rxjs/operators';
 })
 export class TopComponent implements OnInit {
   links$: Observable<ScullyRoute[]> = this.scully.available$.pipe(
-    map((links) => links.filter((v) => v.route !== '/'))
+    map((links) => links.filter((v) => v.route !== '/')),
+    tap((v) => console.log(v))
   );
 
   constructor(private scully: ScullyRoutesService) {}

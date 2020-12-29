@@ -90,17 +90,23 @@ h3 {
 [role="list"] {
   list-style: none;
   li {
-    font-size: 120%;
-    font-weight: 600;
     border-radius: 5px;
+    padding: 0.8em;
+
     &:hover {
-      background: #777675;
+      background: #5d5b5b;
+    }
+    time {
+      color: #7c8e90;
+      font-size: 90%;
+      margin-bottom: 0.5em;
     }
     a {
+      font-size: 120%;
+      font-weight: 600;
       color: #272822;
       text-decoration: none;
       display: block;
-      padding: 0.8em;
     }
   }
 }

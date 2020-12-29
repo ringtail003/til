@@ -1,5 +1,6 @@
 <ul role="list">
   <li *ngFor="let link of links$ | async">
+    <time>{{ link.updatedAt |date: "yyyy-MM-dd" }}</time>
     <a [routerLink]="link.route">{{ link.title }}</a>
   </li>
 </ul>
