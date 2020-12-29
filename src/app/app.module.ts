@@ -4,14 +4,12 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ScullyLibModule } from '@scullyio/ng-lib';
-import { IconModule } from 'src/app/components/icons/module';
+import { ComponentModule } from 'src/app/components/module';
 import { TopComponent } from './top/top.component';
 
 @NgModule({
-  declarations: [	AppComponent,
-      TopComponent
-   ],
-  imports: [BrowserModule, AppRoutingModule, ScullyLibModule, IconModule],
+  declarations: [AppComponent, TopComponent],
+  imports: [BrowserModule, AppRoutingModule, ScullyLibModule, ComponentModule],
   providers: [],
   bootstrap: [AppComponent],
 })

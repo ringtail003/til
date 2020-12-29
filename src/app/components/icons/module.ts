@@ -7,4 +7,4 @@ const components = [ViewListIconComponent];
   declarations: components,
   exports: components,
 })
-export class IconModule {}
+export class IconsModule {}
