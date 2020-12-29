@@ -84,3 +84,16 @@ a {
     cursor: pointer;
   }
 }
+
+ul.index {
+  list-style: none;
+  li {
+    margin: 1.2em 0;
+    a: {
+      color: #272822;
+    }
+    a:hover {
+      color: #ffffff;
+    }
+  }
+}

@@ -1,0 +1,5 @@
+<ul class="index">
+  <li *ngFor="let link of links$ | async">
+    <a [routerLink]="link.route">{{ link.title }}</a>
+  </li>
+</ul>

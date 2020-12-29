@@ -3,8 +3,6 @@ import { ActivatedRoute, Router, ROUTES } from '@angular/router';
 import { ScullyRoute, ScullyRoutesService } from '@scullyio/ng-lib';
 import { Observable } from 'rxjs';
 
-declare var ng: any;
-
 @Component({
   selector: 'app-blog',
   templateUrl: './blog.component.html',
