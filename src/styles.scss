@@ -3,3 +3,35 @@
 @import '~prismjs/plugins/toolbar/prism-toolbar.css';
 /* check node_modules/prismjs/themes/ for the available themes */
 @import '~prismjs/themes/prism-okaidia';
+
+html {
+  font-size: 15px;
+}
+
+body {
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans", Meiryo, sans-serif;
+    
+  padding-top: 30px;
+  display: grid;
+  grid-template-columns: 15% 70% 15%;
+  background-color: #2c2929;
+  color: #fff;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 30px;
+  width: 100%;
+  background-color: #353333;
+  color:#f9e808;
+  font-weight: 900;
+  font-size: 1.5rem;
+  padding: 1.5rem;
+}
+
+.content {
+  margin-top: 1rem;
+}
