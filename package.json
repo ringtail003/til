@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "scully": "scully",
     "scully:serve": "scully serve",
-    "deploy:firebase": "scully"
+    "deploy:prepare": "npm run build -- --prod && scully"
   },
   "private": true,
   "dependencies": {
