@@ -19,7 +19,9 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - name: Npm install
         run: npm ci
-      - name: build
+      - name: Build angular
+        run: npm run build -- --prod
+      - name: Build scully
         run: npm run scully
       - name: deploy
         uses: FirebaseExtended/action-hosting-deploy@v0
