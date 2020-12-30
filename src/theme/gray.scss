@@ -110,3 +110,40 @@ h3 {
     }
   }
 }
+
+footer {
+  height: 5.5rem;
+  width: 100%;
+  background-color: #4c4b4b;
+  font-weight: 500;
+  padding: 2rem 0 1rem 0;
+  display: flex;
+  gap: 1.5rem;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  box-sizing: border-box;
+  color: #d8d88d;
+
+  div {
+    height: 1.8rem;
+  }
+  a {
+    color: #d8d88d;
+  }
+  a:hover {
+    color: #f9e808;
+  }
+  svg {
+    font-size: 1.5rem;
+    width: 2rem;
+  }
+  [data-url]:hover::after {
+    content: attr(data-url) "";
+    position: absolute;
+    font-size: 0.9rem;
+    font-weight: normal;
+    margin-top: -1.6rem;
+    margin-left: -2rem;
+  }
+}
