@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "ringtail003-til"
+  },
+  "targets": {
+    "ringtail003-til": {
+      "hosting": {
+        "til": [
+          "ringtail003-til"
+        ]
+      }
+    }
   }
 }
