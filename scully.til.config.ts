@@ -4,7 +4,7 @@ setPluginConfig('md', { enableSyntaxHighlighting: true });
 
 export const config: ScullyConfig = {
   projectRoot: './src',
-  projectName: 'scully2',
+  projectName: 'til',
   outDir: './dist/static',
   routes: {
     '/blog/:slug': {

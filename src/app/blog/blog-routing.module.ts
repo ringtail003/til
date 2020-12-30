@@ -5,10 +5,6 @@ import { BlogComponent } from './blog.component';
 
 const routes: Routes = [
   {
-    path: ':blog',
-    component: BlogComponent,
-  },
-  {
     path: '**',
     component: BlogComponent,
   },
