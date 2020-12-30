@@ -47,3 +47,6 @@ Thumbs.db
 
 # scully
 scully.log
+
+# fireabase
+.firebase/*.cache
