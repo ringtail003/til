@@ -2,7 +2,7 @@
   "hosting": [
     {
       "target": "til",
-      "public": "dist",
+      "public": "dist/static",
       "ignore": [
         "**/.*"
       ],
@@ -20,7 +20,7 @@
       "rewrites": [
         {
           "source": "**",
-          "destination": "/til/index.html"
+          "destination": "/index.html"
         }
       ]
     }
