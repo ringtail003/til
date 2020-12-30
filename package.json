@@ -10,7 +10,8 @@
     "e2e": "ng e2e",
     "scully": "scully",
     "scully:serve": "scully serve",
-    "deploy:prepare": "npm run build -- --prod && scully"
+    "deploy:prepare": "scully",
+    "local": "npm run build --prod && npm run scully -- --scanRoutes --watch && open http://localhost:1668"
   },
   "private": true,
   "dependencies": {
