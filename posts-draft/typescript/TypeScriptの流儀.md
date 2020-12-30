@@ -1,0 +1,355 @@
+# TypeScriptの流儀
+
+https://speakerdeck.com/takefumiyoshii/typescript-falseliu-yi
+このスライドがとても良かった。
+何となく使っていた書き方の「なぜそうなのか」を知るって興味深くて納得感が得られる。
+
+スライドを読むだけだと情報が右から左に流れてしまうので簡略化しながら写経。
+
+# 型推論いろは
+
+実装から型推論が得られる。
+
+```typescript
+const greet = () => 'hello';
+const msg = greet(); // string
+```
+
+意図的なAssertion（宣言）がある場合は推論でなく宣言に従う。
+
+```typescript
+const greet = () => 'hello' as any;
+const msg = greet(); // any
+```
+
+意図的なAssertionは実装を束縛する事ができる。
+
+```typescript
+const greet = (): void => 'hello'; // Error
+```
+
+const/letの型推論は同じ値であっても異なる。
+constは再代入不可のためLiteral型と推論される。
+
+```typescript
+let msg = 'msg'; // string型
+const msg2 = 'msg'; // msg型
+```
+
+TypeScriptではNullable型をUnion Typesで表現する。
+
+```typescript
+let user: string | null;
+```
+
+ガード節を通過したブロックでは型が絞り込まれる。
+絞り込まれると、型を想定したアクセスが安全であると解釈される。
+
+```typescript
+function greet(name: string | null) {
+  if (name === null) {
+    return 'user';
+  }
+  return name.toUpperCase(); // string
+
+  // 三項演算子でも有効
+  return name === null ? 'user' : name.toUpperCase();
+}
+```
+
+Liteal型で区別できるUnion TypeはDiscriminated Unions（タグ付き Union Types）と呼ぶ。
+
+```typescript
+type UserA = { gender: 'male'; name: string; };
+type UserB = { gender: 'female'; age: number; };
+type User = UserA | UserB;
+```
+
+タグ付きUnion Typesは分岐で型が絞り込まれる。
+分岐した型へのアクセスは安全であると解釈される。
+
+```typescript
+function greet(user: User) {
+  switch (user.gender) {
+    case 'male':
+      return user.name; // UserA.name -> string
+    case 'female':
+      return user.age; // UserB.age -> number;
+    default:
+      return user; // never
+  }
+}
+```
+
+# 攻防一体・型の策略
+
+実装による型推論だけでは不十分。どのように利用されるのかプログラマしか知り得ない策略があるから。
+型の付与はつまりコンパイラに策略を通達する事。
+
+Annotation付与は「守りの策略」。
+型を付与する事で要件を決める。
+
+```typescript
+const str1: string = []; // Error
+const str2: 'str' = 'hoge'; // Error
+```
+
+オブジェクトプロパティを制約する型をインデックスシグネチャという。
+
+```typescript
+type Funcs = { [key: string]: Function };
+
+const funcs: Funcs = {
+  a: () => true,
+  b: () => 'hoge', // Error
+};
+```
+
+インデックスシグネチャは望まない推論結果になる事がある。
+
+```typescript
+const obj = {
+  id: 0, // number
+  items: [], // never（望まない推論結果）
+};
+```
+
+そういうときはヒントを付与する。
+
+```typescript
+const obj = {
+  id: 0, // number
+  items: [] as string[], // string[]
+};
+```
+
+互換性が成立する場合のヒントはアップキャスト・ダウンキャストに使う事ができる。
+
+```typescript
+const name = 'aaa';
+const name1 = name as 'aaa'; // 許容する値が狭まる -> ダウンキャスト
+const name2 = name as any; // 許容する値が広がる -> アップキャスト
+```
+
+互換性チェックは構造的部分型に基づくため、誤ったダウンキャストをしてもコンパイラに責任はない。
+
+```typescript
+const name = 'aaa';
+const name1 = name as 'hoge'; // hoge型なのに値は'aaa'
+```
+
+アップキャスト > ダウンキャストするDouble Assertionという手法がある。
+コンパイラよりプログラマのほうが利用方法の知識を持っている場合に使う苦肉の策。
+
+```typescript
+const a = new User() as any as UserA;
+```
+
+# コンパイラの合意
+
+この型であって欲しいとコンパイラに通達するために満たす必要最低限の条件。
+
+例えばArrary.filterの推論では型を絞り込む事ができない。
+
+```typescript
+type Male = { id: string; gender: 'male' };
+type Female = { id: string; gender: 'female' };
+type User = Male | Female;
+
+[
+  { id: '1', gender: 'male' },
+  { id: '2', gender: 'female' },
+].filter(user => user.gender === 'male'); // User[]
+```
+
+User Defined Type Guardを使うと後続の型解釈を操作する事ができる。
+
+```typescript
+[
+  { id: '1', gender: 'male' },
+  { id: '2', gender: 'female' },
+].filter((user): User is Male => user.gender === 'male'); // Male[]
+```
+
+実装を間違えたとしてもコンパイラに責任はない。
+Array.filterのコールバック関数はboolean型さえ返却すればコンパイラは合意する。
+このようなケースではプログラマが型安全を肩代わりする。
+
+```typescript
+[
+  ...
+]
+.filter((user): User is Male => user.gender === 'female'); // 誤り：Male[]
+```
+
+Non-null assertionはコンパイラを欺く悪い慣習という印象がある。
+
+```typescript
+const msg = 'hello' as string | null;
+const nullable = msg; // string | null;
+const nonNullable = msg!; // string;
+```
+
+```typescript
+const msg = null as string | null;
+msg!.toUpperCase(); // コンパイルエラーにならないがランタイムエラーになる
+
+const msg2 = 'str' as string | null;
+msg!.toUpperCase(); // コンパイルエラー
+```
+
+しかしコンパイラよりプログラマのほうが型に詳しい時には有効な手段となる。
+
+```typescript
+// getElementByIdの戻り値はHTMLElement|null
+document.getElementById('xxx')!.addEventListener('click', () => {});
+```
+
+つまりNon-null assertionはコンパイラを欺くためのものではなく、品質担保の意思表示に他ならない。品質担保の署名を信用しコンパイラは合意する。
+
+letをconstとして扱えるConst assertionというものがある。
+より厳格であるという署名を与えプログラマの意思表示に利用できる。
+この署名を行った場合はJavaScript本来の挙動とは異なる厳格さが与えられる事に注意しなければいけない。
+
+```typescript
+let user = 'taro' as const
+user = 'TARO'; // Error; JavaScriptとは異なる
+```
+
+# 型の主従関係
+
+実装しているコードが「上流工程なのか・下流なのか」の意識を持つ。
+合意を得られた型が上流から流れてくるため。
+
+```typescript
+import { TYPE_A } from './types';
+export function addType(value: number) {
+  return { type: TYPE_A, value };
+}
+```
+
+`TYPE_A` が上流で定義されている場合、下流では型を付与しない方が良い。
+
+```typescript
+// types.ts
+export = {
+  TYPE_A: 'A',
+}
+
+// xxx.ts
+export function addType(value: number) {
+  return { type: TYPE_A, value };
+  // String Literalの'A'型が得られる
+}
+```
+
+上流下流はつまり依存関係で、型の主従関係を示す。
+下記のヘルパー関数のような純関数は依存関係がなく（import節を見れば明白）上流である。
+
+```typescript
+export function isNumberLikeString(value: string) {
+  return !value.match(/[^-^0-9^.]/g);
+}
+```
+
+※ 純関数（=純粋関数 =参照透過性）
+https://postd.cc/httpstaltz-comis-your-javascript-function-actually-pure/
+
+# 源流を辿る型定義
+
+中流工程において「攻めの攻略」が誤っていた場合、本来の正しい型が覆される事がある。
+全工程において「策略のルーツ」を伝搬することが望ましい。
+
+typeofは定義済みの実装から型を読み取るクエリー。
+実装推論と同じ結果を得る事ができ、型定義を付与してまわるより正確。
+
+```typescript
+type UserState = typeof userState;
+const userState = {
+  id: '',
+  name: '',
+  tasks: [] as Task[],
+};
+
+// UserState 
+{
+  id: string;
+  name: string;
+  tasks: Task[];
+}
+```
+
+Partialは全てのプロパティをOptionalに変換するUtility Types。
+
+```typescript
+type Injects = Partial<UserState>;
+
+// Injects
+{
+  id?: string | undefined;
+  name?: string | undefined;
+  tasks?: Task[] | undefined;
+}
+```
+
+Utility Typesによって中流構築が捗る。
+例えば次のようなファクトリ関数に使い所がある。
+
+```typescript
+function userStateFactory(injects?: Injects) {
+  return { ...userState, ...injects };
+}
+```
+
+typeofは関数にも適用できる。
+ReturnTypeもビルトインUtility Typesのひとつ。
+
+```typescript
+const type = ReturnType<typeof userStateFactory>;
+
+// 推論で得られる型
+{
+  id: string;
+  name: string;
+  tasks: Task[];
+}
+```
+
+型を伝搬する事で上流をリファクタした時、全てに伝搬するメリットがある。
+中流工程で上流の定義を再定義するような宣言をしてしまうとこの恩恵は受けられない。
+
+```typescript
+const userState = {
+  // id: '',
+  id: null as string | null,
+  name: '',
+  tasks: [] as Task[],
+};
+```
+
+Conditional Types は型の三項演算子。
+
+```typescript
+type IsNumber<T> = T extends number ? true : false;
+type T1 = IsNumber<1> // true
+type T2 = IsNumber<'2'> // false
+```
+
+Conditional Typesは比較対象型の部分導出が可能。
+組み込みUtility TypesのReturnTypeもこれを利用している。
+
+```typescript
+type ReturnType<T> = T extends (...args: any) => infer I ? I : any;
+// infer Iの部分が導出対象
+// Tが関数として評価できる場合infer Iに相当する型を導出できる
+```
+
+戻り値導出の他、引数の導出が可能になる。
+Conditional typesを組み合わせれば源流を辿る事ができる。
+
+```typescript
+type Argument2<T> = T extends (a1: any, a2: infer I) => any ? I : never;
+```
+
+下流工程は型を受け流すことが最も厳格（型定義を頑張らない）
+複雑な型定義は源流を辿るためにある。
