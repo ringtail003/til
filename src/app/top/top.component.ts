@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ScullyRoute, ScullyRoutesService } from '@scullyio/ng-lib';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-top',
@@ -10,7 +10,17 @@ import { map, tap } from 'rxjs/operators';
 })
 export class TopComponent implements OnInit {
   links$: Observable<ScullyRoute[]> = this.scully.available$.pipe(
-    map((links) => links.filter((v) => v.route !== '/'))
+    map((links) => links.filter((v) => v.route !== '/')),
+    map((links) => {
+      console.log(links);
+      return links.sort((a, b) => {
+        return a['updatedAt'] > b['updatedAt']
+          ? -1
+          : a['updatedAt'] < b['updatedAt']
+          ? 1
+          : 0;
+      });
+    })
   );
 
   constructor(private scully: ScullyRoutesService) {}

@@ -89,21 +89,28 @@ h3 {
 }
 
 [role="list"] {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 1rem;
   list-style: none;
+
   li {
     border-radius: 5px;
     padding: 0.8em;
+    background: #8d8b8b;
+    width: 12rem;
 
     &:hover {
-      background: #5d5b5b;
+      cursor: pointer;
+      background: #747070;
     }
     time {
-      color: #7c8e90;
-      font-size: 90%;
+      color: #3e4647;
+      font-size: 80%;
       margin-bottom: 0.5em;
     }
     a {
-      font-size: 120%;
+      font-size: 100%;
       font-weight: 600;
       color: #272822;
       text-decoration: none;
