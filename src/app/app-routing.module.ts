@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { TopComponent } from 'src/app/top/top.component';
+import { RouterModule, Routes } from '@angular/router';
+import { TopComponent } from 'src/app/components/top/top.component';
 
 const routes: Routes = [
   {

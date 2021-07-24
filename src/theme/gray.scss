@@ -88,6 +88,27 @@ h3 {
   }
 }
 
+[role="navigation"] {
+  .tag {
+    background: #545454;
+    color: #272822;
+    border-radius: 7px;
+    padding: 0.5rem;
+    border: solid 1px #272822;
+    font-weight: 400;
+    margin: 15px 0 0 0;
+
+    &:hover {
+      background: #4e4e4e;
+      cursor: pointer;
+    }
+
+    &[selected="true"] {
+      background: #4e4e4e;
+    }
+  }
+}
+
 [role="list"] {
   list-style: none;
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'tag',
@@ -6,14 +6,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./tag.component.scss'],
 })
 export class TagComponent implements OnInit {
-  @Input() tag?: string;
-  @Output() emitClick = new EventEmitter<string>();
-
-  tags!: string[];
+  @Input() tags: string[] = [];
 
   constructor() {}
 
-  ngOnInit(): void {
-    this.tags = (this.tag || '').split(' ').filter((v) => !!v);
-  }
+  ngOnInit(): void {}
 }

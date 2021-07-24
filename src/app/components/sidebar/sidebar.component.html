@@ -1,1 +1,7 @@
-<p *ngFor="let tag of tags" class="tag" [textContent]="tag"></p>
+<p
+  *ngFor="let tag of tags"
+  class="tag"
+  [attr.selected]="tag.isSelected"
+  [textContent]="tag.tag"
+  (click)="handleClick(tag.tag)"
+></p>

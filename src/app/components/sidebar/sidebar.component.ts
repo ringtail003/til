@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import tags from 'src/tags.json';
+import { TagSelector } from 'src/app/services/tag-selector';
 
 @Component({
   selector: 'sidebar',
@@ -7,11 +7,15 @@ import tags from 'src/tags.json';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-  constructor() {}
+  tags: { tag: string; isSelected: boolean }[] = [];
 
-  tags!: string[];
+  constructor(private tagSelector: TagSelector) {}
 
   ngOnInit(): void {
-    this.tags = tags;
+    this.tagSelector.watch().subscribe((tags) => (this.tags = tags));
+  }
+
+  handleClick(event: string): void {
+    this.tagSelector.toggle(event);
   }
 }

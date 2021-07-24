@@ -17,10 +17,11 @@
     "target": "es2015",
     "module": "es2020",
     "lib": [
-      "es2018",
+      "esnext",
       "dom"
     ],
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,

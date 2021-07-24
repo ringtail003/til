@@ -1,7 +1,7 @@
 <ul role="list">
-  <li *ngFor="let link of links$ | async">
-    <time>{{ link.updatedAt | date: "yyyy-MM-dd" }}</time>
-    <a [routerLink]="link.route">{{ link.title }}</a>
-    <tag [tag]="link.tags"></tag>
+  <li *ngFor="let post of posts | tagsMatch: tags">
+    <time>{{ post.updatedAt | date: "yyyy-MM-dd" }}</time>
+    <a [routerLink]="post.route">{{ post.title }}</a>
+    <tag [tags]="post.tags | splitTag"></tag>
   </li>
 </ul>

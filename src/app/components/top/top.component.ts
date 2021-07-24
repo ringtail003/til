@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ScullyRoute, ScullyRoutesService } from '@scullyio/ng-lib';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { TagSelector } from 'src/app/services/tag-selector';
 
 @Component({
   selector: 'app-top',
@@ -9,20 +10,46 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./top.component.scss'],
 })
 export class TopComponent implements OnInit {
-  links$: Observable<ScullyRoute[]> = this.scully.available$.pipe(
-    map((links) => links.filter((v) => v.route !== '/')),
-    map((links) => {
-      return links.sort((a, b) => {
-        return a['updatedAt'] > b['updatedAt']
-          ? -1
-          : a['updatedAt'] < b['updatedAt']
-          ? 1
-          : 0;
-      });
-    })
+  posts: ScullyRoute[] = [];
+  tags: string[] = [];
+
+  #posts$: Observable<ScullyRoute[]> = this.scully.available$.pipe(
+    map((posts) => posts.filter((v) => v.route !== '/')),
+    map((posts) => this.sortBy(posts, 'updatedAt'))
   );
 
-  constructor(private scully: ScullyRoutesService) {}
+  constructor(
+    private scully: ScullyRoutesService,
+    private tagSelector: TagSelector
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.tagSelector
+      .watch()
+      .subscribe(
+        (tags) =>
+          (this.tags = tags
+            .filter((tag) => tag.isSelected)
+            .map((tag) => tag.tag))
+      );
+
+    this.#posts$.subscribe((posts) => {
+      this.posts = posts;
+      this.tagSelector.load(posts);
+    });
+  }
+
+  sortBy(posts: ScullyRoute[], field: string): ScullyRoute[] {
+    return posts.sort((a, b) => {
+      if (a[field] > b[field]) {
+        return -1;
+      }
+
+      if (a[field] < b[field]) {
+        return 1;
+      }
+
+      return 0;
+    });
+  }
 }
