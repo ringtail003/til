@@ -3,7 +3,9 @@ title: mysqlの文字コード
 description: デフォルト文字コードのセットをmy.cnfで指定する
 published: false
 tags: mysql
-updatedAt: 2021-04-04
+updatedAt: 2021-04-04T00:00:00.000Z
+slugs:
+    - ___UNPUBLISHED___krhj7iz8_fhxr2UTfEXJ6TCKms71v3PGgUWgzZiJ0
 ---
 
 # mysqlの文字コード
