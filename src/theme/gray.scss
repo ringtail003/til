@@ -97,12 +97,12 @@ h3 {
   li {
     border-radius: 5px;
     padding: 0.8em;
-    background: #8d8b8b;
+    background: #747070;
     width: 12rem;
 
     &:hover {
       cursor: pointer;
-      background: #747070;
+      background: #8d8b8b;
     }
     time {
       color: #3e4647;
@@ -115,6 +115,14 @@ h3 {
       color: #272822;
       text-decoration: none;
       display: block;
+    }
+    .tag {
+      background: #3e4647;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.8rem;
+      color: #747070;
+      border-radius: 5px;
+      margin-right: 0.2rem;
     }
   }
 }

@@ -12,7 +12,6 @@ export class TopComponent implements OnInit {
   links$: Observable<ScullyRoute[]> = this.scully.available$.pipe(
     map((links) => links.filter((v) => v.route !== '/')),
     map((links) => {
-      console.log(links);
       return links.sort((a, b) => {
         return a['updatedAt'] > b['updatedAt']
           ? -1
