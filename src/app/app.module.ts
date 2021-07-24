@@ -6,9 +6,10 @@ import { TagComponent } from 'src/app/components/tag/tag.component';
 import { TopComponent } from 'src/app/components/top/top.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
-  declarations: [AppComponent, TopComponent, TagComponent],
+  declarations: [AppComponent, TopComponent, TagComponent, SidebarComponent],
   imports: [BrowserModule, AppRoutingModule, ScullyLibModule, ComponentModule],
   providers: [],
   bootstrap: [AppComponent],
