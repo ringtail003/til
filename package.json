@@ -9,6 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "scully": "scully",
+    "scully:add": "ng generate @scullyio/init:post -- --target=\"posts\" --name=\"yyyy-mm-dd\" && code posts/yyyy-mm-dd.md",
+    "scully:scan-route": "npm run scully -- --scanRoutes",
     "scully:serve": "scully serve",
     "deploy:prepare": "scully",
     "local": "npm run build --prod && npm run scully -- --scanRoutes --watch && open http://localhost:1668"
