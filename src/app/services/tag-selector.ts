@@ -59,7 +59,7 @@ export class TagSelector {
       return;
     }
 
-    match.isSelected ? this.deselect(tag) : this.select(tag);
+    this.#tagSelection.forEach((tag) => (tag.isSelected = tag === match));
     this.next();
   }
 
