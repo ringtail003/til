@@ -1,7 +1,0 @@
-docs:
-- title: angular
-  pages:
-    - title: "zone.js"
-      url: angular/ng-zone.md
-    - title: "zone2.js"
-      url: angular/ng-zone2.md
