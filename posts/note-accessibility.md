@@ -47,3 +47,8 @@ Mac の [VoiceOver](https://support.apple.com/ja-jp/guide/voiceover/vo2682/mac) 
 [コンテンツ区分 \| MDN](https://developer.mozilla.org/ja/docs/Web/HTML/Element#content_sectioning)
 
 ## 操作可能
+
+
+## WIP 
+
+2021-07-25の記事をベースにまとめ中
