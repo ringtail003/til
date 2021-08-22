@@ -20,12 +20,19 @@ published: true
 設定 > アクセシビリティ > ディスプレイ > 視覚効果を減らす（macOS）のチェックのオンオフによってアニメーションをスイッチする
 
 ```html
-<div class="animation">hello</div>
+<div class="animation box">hello</div>
 
 <style>
+.box {
+  width: 5rem;
+  padding: 0.5rem;
+  border-radius: 10px;
+  text-align: center;
+}
+  
 @keyframes fadeIn {
-  from { }
-  to { }
+  from { color:white; }
+  to { background:black; color:white; }
 }
 
 /* 視覚効果を減らす：オン */
