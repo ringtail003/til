@@ -8,7 +8,7 @@ published: true
 
 ## [Separate Write Types on Properties](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-3.html#separate-write-types-on-properties)
 
-ゲッター・セッターで別の型指定ができるようになった。
+TL;DR ゲッター・セッターで別の型指定ができるようになった。
 
 ```ts
 class Thing {
@@ -38,6 +38,8 @@ interface Thing {
 
 ## [override and the \-\-noImplicitOverride Flag](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-3.html#override-and-the---noimplicitoverride-flag)
 
+TL;DR override キーワードで明示的なオーバーライドが記述できるようになった。
+
 ```ts
 class SpecializedComponent extends SomeComponent {
     override show() {
@@ -49,7 +51,7 @@ class SpecializedComponent extends SomeComponent {
 }
 ```
 
-オーバーライドしたメソッドにoverrideキーワードが指定できるようになった。これにより派生元のクラスで該当メソッドが削除された時にコンパイルエラーが得られる。
+これにより派生元のクラスで該当メソッドが削除された時にコンパイルエラーが得られる。
 
 ```ts
 // tsconfig.json
@@ -64,7 +66,7 @@ noImplicitOverrideフラグをオンにするとoverrideキーワードを強制
 
 ## [Template String Type Improvements](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-3.html#template-string-type-improvements)
 
-Template Literal にstringを代入した時、Template Literalとして推論されるようになった。
+TL;DR Template Literal にstringを代入した時、stringとして型推論される居づが改善された。
 
 ```ts
 declare let s1: `${number}-${number}-${number}`;
@@ -91,7 +93,7 @@ declare function foo<V extends string>(arg: `*${V}*`): V;
 
 ## [ECMAScript \#private Class Elements](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-3.html#ecmascript-private-class-elements)
 
-privateメソッドが記述できるようになった。
+TL;DR privateメソッドが記述できるようになった。
 
 ```ts
 class Foo {
@@ -100,7 +102,7 @@ class Foo {
 }
 ```
 
-staticメソッドにも展開できる
+staticメソッドにも展開できる。
 
 ```ts
 class Foo {
