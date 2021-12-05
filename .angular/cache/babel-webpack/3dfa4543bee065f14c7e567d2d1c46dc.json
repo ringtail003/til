@@ -1,0 +1,1 @@
+{"ast":null,"code":"export function uniqueTag(tags) {\n  const array = [];\n  tags.forEach(tag => {\n    if (!array.find(v => v.toLowerCase() === tag.toLowerCase())) {\n      array.push(tag);\n    }\n  });\n  return array;\n}","map":null,"metadata":{},"sourceType":"module"}

@@ -1,0 +1,1 @@
+{"ast":null,"code":"export function splitTag(tagsString) {\n  if (!tagsString) {\n    return [];\n  }\n\n  return tagsString.split(' ').filter(v => !!v);\n}","map":null,"metadata":{},"sourceType":"module"}

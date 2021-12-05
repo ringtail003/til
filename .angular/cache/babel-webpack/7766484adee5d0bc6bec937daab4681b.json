@@ -1,0 +1,1 @@
+{"ast":null,"code":"export function tagsMatch(tags, matches) {\n  const _matches = matches.map(tag => tag.toLowerCase());\n\n  const _tags = tags.map(tag => tag.toLowerCase());\n\n  return _matches.every(match => _tags.includes(match));\n}","map":null,"metadata":{},"sourceType":"module"}
