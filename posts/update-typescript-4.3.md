@@ -164,4 +164,184 @@ function f2<T extends Square | Rectangle>(t: T) {
 }
 ```
 
-// WIP
+## [Always\-Truthy Promise Checks](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-3.html#always-truthy-promise-checks)
+
+[このページ](https://zenn.dev/aumy/articles/typescript-430#%E6%9D%A1%E4%BB%B6%E5%BC%8F%E3%81%A7%E3%81%AE-promise-%E3%81%AE%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF) の解説を参照。
+
+Promiseの戻り値を条件判定に突っ込んだ場合、エラーが得られるようになった。`strictNullChecks` オプションがONの場合にのみ有効。
+
+```ts
+declare function promisefy(): Promise<boolean>;
+
+async function bar(): Promise<string> {
+  const promise = promisefy();
+
+  // @error: This condition will always return true since this 'Promise<boolean>' is always defined.(2801)
+  if (promise) {
+    return "true";
+  }
+
+  return "false";
+}
+```
+
+awaitすればOK。
+
+```ts
+  // @noerror
+  if (await promise) {
+    return "true";
+  }
+```
+
+## [static Index Signatures](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-3.html#static-index-signatures)
+
+Index Signaturesがクラスのstaticメンバに展開できるようになった。
+
+```ts
+class Foo {
+  static [propName: string]: string | number | undefined;
+
+  static str = "hello" as const;
+  static no = 1234;
+}
+
+const str = Foo["str"]; // str: "hello"
+const no = Foo["no"]; // no: number;
+```
+
+型に沿わないメンバのコンパイルエラーが得られる。
+
+```ts
+class Foo {
+  static [propName: string]: string | number | undefined;
+
+  // @error: Property 'hoge' of type '{}' is not assignable to string index type 'string | number | undefined'.
+  static hoge = {};
+}
+```
+
+## [\.tsbuildinfo Size Improvements](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-3.html#tsbuildinfo-size-improvements)
+
+`.tsbuildinfo` のファイルサイズの改善が入った。
+
+.tsbuildinfoとはコンパイル時のバージョン情報をSHAハッシュしてファイル保存したもの。次回、差分を検出してコンパイルされるため高速化できる。
+
+試しにこのリポジトリでファイルを出力してみる。
+
+```sh
+./node_modules/.bin/tsc foo.ts 
+  \--incremental 
+  \--module commonjs 
+  \--tsBuildInfoFile buildinfo 
+```
+
+こんなファイルが出力された。
+
+```ts
+// buildinfo
+{
+  "program": {
+    "fileInfos": {
+      "./node_modules/typescript/lib/lib.d.ts": {
+        "version": "2dc8c927c9c162a773c6bb3cdc4f3286c23f10eedc67414028f9cb5951610f60",
+        "signature": "2dc8c927c9c162a773c6bb3cdc4f3286c23f10eedc67414028f9cb5951610f60",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/typescript/lib/lib.es5.d.ts": {
+        "version": "c9a1f03d6ba0fe3c871eb0dd81622e78fbb61ade70878b34d48a341a690c59e9",
+        "signature": "c9a1f03d6ba0fe3c871eb0dd81622e78fbb61ade70878b34d48a341a690c59e9",
+        "affectsGlobalScope": true
+      },
+    },
+    "semanticDiagnosticsPerFile": [
+      
+      "./node_modules/typescript/lib/lib.scripthost.d.ts",
+      "./node_modules/typescript/lib/lib.webworker.importscripts.d.ts"
+    ]
+  },
+  "version": "4.0.5"
+}
+```
+
+TS4.3で繰り返し同じパスを出力する部分を数値化する事でサイズを削減しビルド時間が短縮できたそう。
+
+## [Lazier Calculations in \-\-incremental and \-\-watch Compilations](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-3.html#lazier-calculations-in---incremental-and---watch-compilations)
+
+`--incremental` と `--watch` モードは最初のビルドでプロジェクトを分析し場合によって `.tsbuildinfo` への保存が走るため、初回のコンパイルが遅くなる。TS4.3でこのパフォーマンスが改善された。
+
+## [Import Statement Completions](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-3.html#import-statement-completions)
+
+import文の補完が改善された。
+
+```ts
+// ここまでタイプすると
+import { writeFile
+```
+
+```ts
+// 残りの部分がサジェストされる。
+import { writeFile } from "fs";
+```
+
+ただしエディタの対応も必要。VSCode Insiders versions（β版ぽいやつ）がこれに対応しているらしい。
+
+## [Editor Support for @link Tags](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-3.html#editor-support-for-link-tags)
+
+`@link` タグからコードジャンプできるようになった。
+
+```ts
+import { foo } from "foo";
+
+/**
+ * {@link foo}
+ */
+```
+
+VSCode Insiders versionsで対応。
+
+## [Go\-to\-Definition on Non\-JavaScript File Paths](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-3.html#go-to-definition-on-non-javascript-file-paths)
+
+これまでJSでないファイルのimport文からコードジャンプする事ができなかったが、できるようになった。
+
+```ts
+import "./styles.css"
+```
+
+## Breaking Changes
+
+### [lib\.d\.ts Changes](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-3.html#libdts-changes)
+
+`MSPointerEvent` `WebAuthentication` などのAPIが `lib.d.ts` から削除された。
+
+### [useDefineForClassFields now defaults to true on esnext and eventually on es2022](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-3.html#usedefineforclassfields-now-defaults-to-true-on-esnext-and-eventually-on-es2022)
+
+ESとTSのクラスの振る舞いの差分を吸収するオプション `useDefineForClassFields` が追加された。 `ES2022` 以降ではtrue（ESの仕様に合わせる）がデフォルトになる。
+
+### [Union Enums Cannot Be Compared to Arbitrary Numbers](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-3.html#union-enums-cannot-be-compared-to-arbitrary-numbers)
+
+Enumの値が数値の場合、Enumに含まれない数値がコンパイルエラーで得られるようになった。
+
+```ts
+enum E {
+  A = 0,
+  B = 1,
+}
+function doSomething(x: E) {
+  // @error: This condition will always return 'false' since the types 'E' and '-1' have no overlap.
+  if (x === -1) {}
+}
+```
+
+< 4.3でも文字列の場合はコンパイルエラーが得られていた。
+
+```ts
+enum E {
+  A = "foo",
+  B = "bar"
+}
+
+function doSomething(x: E) {
+  if (x === "fooooooo") {}
+}
+```
