@@ -1,7 +1,7 @@
 ---
 title: TypeScript 4.3
 description: null
-tags: typescript
+tags: typescript, updates
 updatedAt: 2021-11-11
 published: true
 ---
