@@ -69,7 +69,7 @@ https://dev.mysql.com/doc/refman/5.6/ja/mysql-command-options.html
 
 # ローカルDBのテーブル構造とデータを書き出す
 
-```sh
+```shell
 mysqldump -uroot -p {db_name} > {db_name}.sql
 
 # テーブル構造のみの場合は --no-data オプション付ける
@@ -79,7 +79,7 @@ mysqldump -uroot -p {db_name} > {db_name}.sql
 
 mysqlが古いらしいのでアップデート。
 
-```sh
+```shell
 mysql_upgrade -u root -p
 
 > Upgrade process completed successfully.
@@ -91,5 +91,5 @@ mysql_upgrade が処理の最後に mysql_upgrade_info というファイルに�
 ユーザー _mysql か root でないと権限がなく、コマンド実行者（ログインユーザー）は書き込めないらしい。
 対処が分からないので無視。
 
-```sh
+```shell
 ```

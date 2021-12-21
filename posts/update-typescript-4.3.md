@@ -229,7 +229,7 @@ class Foo {
 
 試しにこのリポジトリでファイルを出力してみる。
 
-```sh
+```shell
 ./node_modules/.bin/tsc foo.ts 
   \--incremental 
   \--module commonjs 

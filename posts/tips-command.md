@@ -8,6 +8,6 @@ published: true
 
 ### Composerでまだマージされていないブランチを取り込む
 
-```sh
+```shell
 composer require org/package:dev-{branch}
 ```
