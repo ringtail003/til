@@ -33,6 +33,9 @@ speed-measure-plugin*.json
 
 # misc
 /.sass-cache
+/.angular/cache
+scully.til.config.js
+.scully/settings.yml
 /connect.lock
 /coverage
 /libpeerconnection.log
