@@ -1,4 +1,5 @@
 import { ScullyConfig, setPluginConfig } from '@scullyio/scully';
+import '@scullyio/scully-plugin-puppeteer';
 
 setPluginConfig('md', { enableSyntaxHighlighting: true });
 
