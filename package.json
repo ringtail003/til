@@ -14,7 +14,7 @@
     "scully:scan-route": "npm run scully -- --scanRoutes",
     "scully:serve": "scully serve",
     "deploy:prepare": "scully",
-    "local": "npm run build --prod && npm run scully -- --scanRoutes --watch && open http://localhost:1668"
+    "local": "npm run build --prod && npm run scully -- --scanRoutes --watch"
   },
   "private": true,
   "dependencies": {
