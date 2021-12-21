@@ -34,8 +34,6 @@ speed-measure-plugin*.json
 # misc
 /.sass-cache
 /.angular/cache
-scully.til.config.js
-.scully/settings.yml
 /connect.lock
 /coverage
 /libpeerconnection.log
@@ -49,7 +47,11 @@ testem.log
 Thumbs.db
 
 # scully
+.scully
 scully.log
+src/assets/scully-routes.json
+scully/plugins/*.js
+scully/plugins/*.js.map
 
 # fireabase
 .firebase/*.cache
