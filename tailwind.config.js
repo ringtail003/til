@@ -1,6 +1,6 @@
-module.exports = {
+const baseConfig = {
   // mode: 'jit',
-  purge: ['./src/**/*.{html,ts}'],
+  content: ['./src/**/*.{html,ts}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
@@ -10,3 +10,10 @@ module.exports = {
   },
   plugins: [],
 };
+
+const devModeConfig = {
+  ...baseConfig,
+  safelist: [{ pattern: /.*/ }],
+};
+
+module.exports = process.env.TAILWIND_MODE === "watch" ? devModeConfig : baseConfig;
