@@ -19,3 +19,21 @@ npm run build
 ## デプロイ先
 
 https://ringtail003-til.firebaseapp.com/
+
+## 開発環境の起動
+
+### インストール
+
+```shell
+nvm use
+
+npm ci
+```
+
+### Anuglar（コンポーネントの開発・見た目の調整）
+
+```shell
+npm start
+
+open http://localhost:4200
+```
