@@ -1,5 +1,6 @@
 module.exports = {
   "root": true,
+  "node": true,
   "extends": [
       "eslint:recommended",
       "plugin:@typescript-eslint/recommended"
