@@ -1,77 +1,44 @@
 import { Injectable } from '@angular/core';
-import { ScullyRoute } from '@scullyio/ng-lib';
 import * as Rx from 'rxjs';
-import { splitTag } from 'src/app/utils/split-tag';
-import { uniqueTag } from 'src/app/utils/unique-tag';
-
-interface TagSelect {
-  tag: string;
-  isSelected: boolean;
-}
+import { Tag } from 'src/app/pages/list/models/tag';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TagSelector {
-  #subject$ = new Rx.Subject<TagSelect[]>();
-  #tagSelection: TagSelect[] = [];
+  #subject$ = new Rx.Subject<Tag[]>();
+  #tags: Tag[] = [];
 
-  load(routes: ScullyRoute[]): void {
-    this.#tagSelection = uniqueTag(
-      routes.flatMap((route) => splitTag(route['tags']))
-    ).map((tag) => ({
-      tag,
-      isSelected: false,
-    }));
-    this.next();
+  set tags(tags: Tag[]) {
+    this.#tags = tags;
   }
 
-  watch(): Rx.Observable<TagSelect[]> {
+  watch(): Rx.Observable<Tag[]> {
     return this.#subject$.asObservable();
   }
 
-  select(tag: string): void {
-    const match = this.find(tag);
-
-    if (!match) {
-      return;
-    }
-
-    match.isSelected = true;
+  select(tag: Tag): void {
+    this.#tags.find((item) => item.isSelected)?.deselect();
+    this.#tags.find((item) => item.match(tag.label))?.select();
     this.next();
   }
 
-  deselect(tag: string): void {
-    const match = this.find(tag);
-
-    if (!match) {
-      return;
-    }
-
-    match.isSelected = false;
+  deselect(tag: Tag): void {
+    this.#tags.find((item) => item.match(tag.label))?.deselect();
     this.next();
   }
 
-  toggle(tag: string): void {
-    const match = this.find(tag);
-
-    if (!match) {
-      return;
+  toggle(tag: Tag): void {
+    if (tag.isSelected) {
+      this.deselect(tag);
+    } else {
+      this.select(tag);
     }
 
-    this.#tagSelection.forEach((tag) => (tag.isSelected = tag === match));
     this.next();
-  }
-
-  private find(tag: string): TagSelect | null {
-    return (
-      this.#tagSelection.find(
-        (item) => item.tag.toLowerCase() === tag.toLowerCase()
-      ) || null
-    );
   }
 
   private next(): void {
-    this.#subject$.next(this.#tagSelection);
+    this.#subject$.next(this.#tags);
   }
 }

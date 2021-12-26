@@ -4,7 +4,7 @@
   "type": "commonjs",
   "scripts": {
     "ng": "ng",
-    "start": "cross-env NODE_ENV=development ng serve",
+    "start": "cross-env NODE_ENV=development ng serve --configuration development",
     "build": "cross-env NODE_ENV=production ng build",
     "test": "ng test",
     "lint": "ng lint",

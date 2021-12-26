@@ -1,0 +1,37 @@
+import { Injectable } from '@angular/core';
+import { map, Observable, take } from 'rxjs';
+import { TagConverter } from 'src/app/pages/list/converter/tag.converter';
+import { ScullyRouteProvider } from 'src/app/pages/list/data-sources/scully-route.provider';
+import { Tag } from 'src/app/pages/list/models/tag';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class FetchTagUsecase {
+  constructor(
+    private scullyRouteProvider: ScullyRouteProvider,
+    private tagConverter: TagConverter
+  ) {}
+
+  exec(): Observable<Tag[]> {
+    return this.scullyRouteProvider.fetch().pipe(
+      take(1),
+      map((scullyRoutes) => {
+        return this.tagConverter.byScullyRoutes(scullyRoutes);
+      }),
+      map((tags) => this.sortAsc(tags))
+    );
+  }
+
+  private sortAsc(tags: Tag[]): Tag[] {
+    const list = Array.from(tags);
+
+    list.sort((a, b) => {
+      const diff = a.label.localeCompare(b.label, 'ja');
+
+      return diff > 0 ? 1 : diff < 0 ? -1 : 0;
+    });
+
+    return list;
+  }
+}

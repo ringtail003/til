@@ -1,54 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { ScullyRoute, ScullyRoutesService } from '@scullyio/ng-lib';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { combineLatest, Subject } from 'rxjs';
+import { BlogIndex } from 'src/app/pages/list/models/blog-index';
+import { Tag } from 'src/app/pages/list/models/tag';
+import { FetchBlogIndexUsecase } from 'src/app/pages/list/usecases/fetch-blog-index.usecase';
+import { FetchTagUsecase } from 'src/app/pages/list/usecases/fetch-tag.usecase';
 import { TagSelector } from 'src/app/services/tag-selector';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
+  providers: [{ provide: TagSelector }],
 })
 export class ListComponent implements OnInit {
-  posts: ScullyRoute[] = [];
-  tags: string[] = [];
-
-  #posts$: Observable<ScullyRoute[]> = this.scully.available$.pipe(
-    map((posts) => posts.filter((v) => v.route !== '/')),
-    map((posts) => this.sortBy(posts, 'updatedAt'))
-  );
+  blogIndexes$ = new Subject<BlogIndex[]>();
+  tags$ = new Subject<Tag[]>();
 
   constructor(
-    private scully: ScullyRoutesService,
+    private fetchBlogIndexUsecase: FetchBlogIndexUsecase,
+    private fetchTagUsecase: FetchTagUsecase,
     private tagSelector: TagSelector
   ) {}
 
   ngOnInit() {
-    this.tagSelector
-      .watch()
-      .subscribe(
-        (tags) =>
-          (this.tags = tags
-            .filter((tag) => tag.isSelected)
-            .map((tag) => tag.tag))
-      );
+    combineLatest([
+      this.fetchBlogIndexUsecase.exec(),
+      this.fetchTagUsecase.exec(),
+    ]).subscribe(([blogIndexes, tags]) => {
+      this.blogIndexes$.next(blogIndexes);
+      this.tags$.next(tags);
+      this.tagSelector.tags = tags;
 
-    this.#posts$.subscribe((posts) => {
-      this.posts = posts;
-      this.tagSelector.load(posts);
-    });
-  }
+      this.tagSelector.watch().subscribe((tags) => {
+        this.blogIndexes$.next(
+          blogIndexes.filter((blogIndex) =>
+            blogIndex.some(tags.map((tag) => tag.label))
+          )
+        );
 
-  sortBy(posts: ScullyRoute[], field: string): ScullyRoute[] {
-    return posts.sort((a, b) => {
-      if (a[field] > b[field]) {
-        return -1;
-      }
-
-      if (a[field] < b[field]) {
-        return 1;
-      }
-
-      return 0;
+        this.tags$.next(tags);
+      });
     });
   }
 }

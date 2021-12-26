@@ -7,7 +7,12 @@ const baseConfig = {
   theme: {
     extend: {
       colors: {
-        blue: colors.sky,
+        background: "#141922",
+        accent: colors.indigo,
+      },
+      minWidth: {
+        '10': "2.5rem",
+        '20': "5rem",
       }
     }
   },

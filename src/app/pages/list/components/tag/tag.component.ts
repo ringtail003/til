@@ -1,11 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Tag } from 'src/app/pages/list/models/tag';
+import { TagSelector } from 'src/app/services/tag-selector';
 
 @Component({
   selector: 'tag',
   templateUrl: './tag.component.html',
 })
 export class TagComponent implements OnInit {
-  constructor() {}
+  @Input() tag!: Tag;
+
+  constructor(private tagSelector: TagSelector) {}
 
   ngOnInit(): void {}
+
+  onToggle(tag: Tag): void {
+    this.tagSelector.toggle(tag);
+  }
 }
