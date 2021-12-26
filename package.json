@@ -4,8 +4,8 @@
   "type": "commonjs",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "cross-env NODE_ENV=development ng serve",
+    "build": "cross-env NODE_ENV=production ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -14,7 +14,6 @@
     "scully:scan-route": "npm run scully -- --scanRoutes",
     "scully:serve": "scully serve",
     "deploy:prepare": "scully",
-    "local": "npm run build --prod && npm run scully -- --scanRoutes --watch",
     "build:prod": "cross-env NODE_ENV=production ng build --configuration production"
   },
   "private": true,
