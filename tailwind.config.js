@@ -11,9 +11,6 @@ const baseConfig = {
       }
     }
   },
-  variants: {
-    extend: {},
-  },
   plugins: [],
 };
 

@@ -1,26 +1,29 @@
-<article
-  class="
-    bg-[#1A202C]
-    p-6
-    rounded-lg
-    bg-opacity-50
-    flex flex-col
-    gap-4
-    h-64
-    hover:bg-[#1c2230]
-  "
->
-  <div>
-    <time class="text-white text-sm font-light">{{
-      article.updatedAt | date: "yyyy-MM-dd"
-    }}</time>
-  </div>
-  <div>
-    <a class="text-xl text-blue-400 font-bold" [routerLink]="article.route">{{
-      article.title
-    }}</a>
-  </div>
-  <div class="flex gap-2">
-    <tag *ngFor="let tag of article.tags">{{ tag }}</tag>
+<article>
+  <div
+    class="
+      bg-gray-800
+      hover:bg-red-100
+      p-6
+      rounded-lg
+      bg-opacity-50
+      flex flex-col
+      gap-4
+      h-64
+      cursor-pointer
+    "
+  >
+    <div>
+      <time class="text-white text-sm font-light">{{
+        article.updatedAt | date: "yyyy-MM-dd"
+      }}</time>
+    </div>
+    <div>
+      <a class="text-xl text-blue-400 font-bold" [routerLink]="article.route">{{
+        article.title
+      }}</a>
+    </div>
+    <div class="flex gap-2">
+      <tag *ngFor="let tag of article.tags">{{ tag }}</tag>
+    </div>
   </div>
 </article>
