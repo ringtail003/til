@@ -7,6 +7,8 @@ export const config: ScullyConfig = {
   projectRoot: './src',
   projectName: 'til',
   outDir: './dist/static',
+  appPort: 4201,
+  reloadPort: 4202,
   routes: {
     '/blog/:slug': {
       type: 'contentFolder',
