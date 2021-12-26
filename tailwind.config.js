@@ -1,7 +1,7 @@
 const colors = require('tailwindcss/colors');
 
 const baseConfig = {
-  // mode: 'jit',
+  mode: 'jit',
   content: ['./src/**/*.{html,ts}'],
   darkMode: false, // or 'media' or 'class'
   theme: {

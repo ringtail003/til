@@ -5,10 +5,10 @@ import { map } from 'rxjs/operators';
 import { TagSelector } from 'src/app/services/tag-selector';
 
 @Component({
-  selector: 'app-top',
-  templateUrl: './top.component.html',
+  selector: 'app-list',
+  templateUrl: './list.component.html',
 })
-export class TopComponent implements OnInit {
+export class ListComponent implements OnInit {
   posts: ScullyRoute[] = [];
   tags: string[] = [];
 

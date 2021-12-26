@@ -3,5 +3,8 @@ export function splitTag(tagsString: string): string[] {
     return [];
   }
 
-  return tagsString.split(' ').filter((v) => !!v);
+  return tagsString
+    .split(',')
+    .map((v) => v.trim())
+    .filter((v) => !!v);
 }
