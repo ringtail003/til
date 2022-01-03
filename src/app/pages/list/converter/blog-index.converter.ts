@@ -32,7 +32,11 @@ export class BlogIndexConverter {
   }
 
   private convertTag(text: string): string[] {
-    const labels = text.split(',').filter((value) => !!value);
+    const labels = text
+      .split(',')
+      .filter((value) => !!value)
+      .map((value) => value.trim())
+      .map((value) => value.toLowerCase());
 
     const set = new Set(labels);
 

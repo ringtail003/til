@@ -10,6 +10,7 @@ export class TagConverter {
         return ((route.tags as string) || '').split(',');
       })
       .map((value) => value.trim())
+      .map((value) => value.toLowerCase())
       .filter((value) => !!value)
       .filter((value) => value !== '/');
 

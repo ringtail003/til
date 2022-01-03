@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { combineLatest, Subject } from 'rxjs';
 import { BlogIndex } from 'src/app/pages/list/models/blog-index';
 import { Tag } from 'src/app/pages/list/models/tag';
+import { TagSelector } from 'src/app/pages/list/services/tag-selector';
 import { FetchBlogIndexUsecase } from 'src/app/pages/list/usecases/fetch-blog-index.usecase';
 import { FetchTagUsecase } from 'src/app/pages/list/usecases/fetch-tag.usecase';
-import { TagSelector } from 'src/app/services/tag-selector';
 
 @Component({
   selector: 'app-list',
@@ -33,7 +33,9 @@ export class ListComponent implements OnInit {
       this.tagSelector.watch().subscribe((tags) => {
         this.blogIndexes$.next(
           blogIndexes.filter((blogIndex) =>
-            blogIndex.some(tags.map((tag) => tag.label))
+            blogIndex.some(
+              tags.filter((tag) => tag.isSelected).map((tag) => tag.label)
+            )
           )
         );
 

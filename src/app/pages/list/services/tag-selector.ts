@@ -34,8 +34,6 @@ export class TagSelector {
     } else {
       this.select(tag);
     }
-
-    this.next();
   }
 
   private next(): void {

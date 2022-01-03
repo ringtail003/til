@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { BaseIconComponent } from 'src/app/shared/icons/base-icon.component';
 
 @Component({
-  selector: 'right-allow-square',
-  templateUrl: './right-allow-square.component.html',
+  selector: 'right-allow-square-icon',
+  templateUrl: './right-allow-square-icon.component.html',
 })
-export class RightAllowSquareComponent
+export class RightAllowSquareIconComponent
   extends BaseIconComponent
   implements OnInit
 {

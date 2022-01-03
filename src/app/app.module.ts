@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScullyLibModule } from '@scullyio/ng-lib';
 import { ComponentModule } from 'src/app/components/module';
 import { ListModule } from 'src/app/pages/list/list.module';
@@ -11,6 +12,7 @@ import { AppComponent } from './app.component';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ScullyLibModule,
     ComponentModule,

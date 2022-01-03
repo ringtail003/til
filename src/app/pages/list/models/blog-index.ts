@@ -1,5 +1,3 @@
-import { Tag } from 'src/app/pages/list/models/tag';
-
 export class BlogIndex {
   #link: string;
   #title: string;
@@ -35,6 +33,10 @@ export class BlogIndex {
   }
 
   some(tags: string[]): boolean {
+    if (!tags.length) {
+      return true;
+    }
+
     return !!tags.find((tag) => this.match(tag));
   }
 
