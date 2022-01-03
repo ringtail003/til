@@ -1,7 +1,7 @@
 ---
 title: 2021-10-20
 description: null
-tags: tips command
+tags: tips,command
 updatedAt: 2021-10-20
 published: true
 ---

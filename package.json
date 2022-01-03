@@ -11,7 +11,7 @@
     "e2e": "ng e2e",
     "scully": "scully",
     "scully:add": "ng generate @scullyio/init:post -- --target=\"posts\" --name=$(date '+%Y-%m-%d-%H-%M') --metaDataFile=\"posts/template.yaml\" && code posts/$(date '+%Y-%m-%d-%H-%M').md",
-    "scully:scan-route": "npm run scully -- --scanRoutes",
+    "scully:scan-route": "npm run scully -- --scanRoutes --showGuessError",
     "scully:serve": "scully serve",
     "deploy:prepare": "scully",
     "build:prod": "cross-env NODE_ENV=production ng build --configuration production"

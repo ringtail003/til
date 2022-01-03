@@ -17,4 +17,7 @@ export const config: ScullyConfig = {
       },
     },
   },
+  guessParserOptions: {
+    excludedFiles: ['./src/app/pages/list/list-routing.module.ts'],
+  },
 };
