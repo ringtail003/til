@@ -1,0 +1,25 @@
+<article>
+  <a
+    [routerLink]="blogPost.link"
+    class="flex flex-col h-64 gap-2 p-8 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700"
+  >
+    <div class="flex items-start gap-1 mb-4">
+      <p class="text-2xl font-bold text-accent-400">{{ blogPost.title }}</p>
+    </div>
+
+    <div>
+      <time class="text-sm font-light text-white">{{
+        blogPost.updatedAt | date: "yyyy-MM-dd"
+      }}</time>
+    </div>
+
+    <div class="flex gap-1">
+      <p
+        *ngFor="let tag of blogPost.tags"
+        class="px-2 py-1 text-sm text-center text-white border border-white rounded-2xl min-w-20"
+      >
+        {{ tag }}
+      </p>
+    </div>
+  </a>
+</article>

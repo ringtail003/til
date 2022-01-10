@@ -1,0 +1,10 @@
+<div class="px-0 xl:px-20 2xl:px-60">
+  <div *ngIf="blogPosts$ | async as blogPosts">
+    <heading>10 Recent Posts</heading>
+    <ul role="list" class="grid grid-cols-1 gap-4 xl:grid-cols-2">
+      <li *ngFor="let post of blogPosts; index as index">
+        <blog-post [blogPost]="post"></blog-post>
+      </li>
+    </ul>
+  </div>
+</div>

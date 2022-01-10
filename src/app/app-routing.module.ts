@@ -11,6 +11,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'list',
+    loadChildren: () =>
+      import('./pages/all-posts/all-posts.module').then(
+        (m) => m.AllPostsModule
+      ),
+  },
+  {
     path: 'blog',
     loadChildren: () => import('./blog/blog.module').then((m) => m.BlogModule),
   },

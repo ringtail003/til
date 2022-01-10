@@ -1,0 +1,14 @@
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { AllPostsComponent } from 'src/app/pages/all-posts/all-posts.component';
+import { HeadingComponent } from 'src/app/pages/all-posts/components/heading/heading.component';
+import { BlogPostComponent } from './components/blog-post/blog-post.component';
+
+const declarations = [AllPostsComponent, HeadingComponent, BlogPostComponent];
+
+@NgModule({
+  imports: [RouterModule, CommonModule],
+  declarations,
+})
+export class AllPostsModule {}

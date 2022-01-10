@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { ScullyRoute } from '@scullyio/ng-lib';
 import { map, Observable, take } from 'rxjs';
-import { BlogIndexConverter } from 'src/app/pages/recent-posts/converter/blog-index.converter';
-import { ScullyRouteProvider } from 'src/app/pages/recent-posts/data-sources/scully-route.provider';
-import { BlogIndex } from 'src/app/pages/recent-posts/models/blog-index';
+import { BlogPostConverter } from 'src/app/pages/all-posts/converter/blog-post.converter';
+import { ScullyRouteProvider } from 'src/app/pages/all-posts/data-sources/scully-route.provider';
+import { BlogPost } from 'src/app/pages/all-posts/models/blog-post';
 import { InvalidBlogPostError } from 'src/app/utils/errors/invalid-blog-index.error';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FetchBlogIndexUsecase {
+export class FetchBlogPostUsecase {
   constructor(
     private scullyRouteProvider: ScullyRouteProvider,
-    private blogIndexConverter: BlogIndexConverter
+    private blogPostConverter: BlogPostConverter
   ) {}
 
-  exec(): Observable<BlogIndex[]> {
+  exec(): Observable<BlogPost[]> {
     return this.scullyRouteProvider.fetch().pipe(
       take(1),
       map((scullyRoutes) => this.convertArray(scullyRoutes)),
@@ -23,7 +23,7 @@ export class FetchBlogIndexUsecase {
     );
   }
 
-  private sortDesc(blogIndexes: BlogIndex[]): BlogIndex[] {
+  private sortDesc(blogIndexes: BlogPost[]): BlogPost[] {
     const list = Array.from(blogIndexes);
 
     list.sort((a, b) => {
@@ -36,15 +36,15 @@ export class FetchBlogIndexUsecase {
     return list;
   }
 
-  private convertArray(scullyRoutes: ScullyRoute[]): BlogIndex[] {
+  private convertArray(scullyRoutes: ScullyRoute[]): BlogPost[] {
     return scullyRoutes
       .filter((route) => route.route !== '/')
       .map((route) => this.convert(route));
   }
 
-  private convert(scullyRoute: ScullyRoute): BlogIndex {
+  private convert(scullyRoute: ScullyRoute): BlogPost {
     try {
-      return this.blogIndexConverter.byScullyRoute(scullyRoute);
+      return this.blogPostConverter.byScullyRoute(scullyRoute);
     } catch (e) {
       throw new InvalidBlogPostError((e as Error).message, scullyRoute.route);
     }
