@@ -10,7 +10,7 @@ export const config: ScullyConfig = {
   appPort: 4201,
   reloadPort: 4202,
   routes: {
-    '/blog/:slug': {
+    '/posts/:slug': {
       type: 'contentFolder',
       slug: {
         folder: './posts',

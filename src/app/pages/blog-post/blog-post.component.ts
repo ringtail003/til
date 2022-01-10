@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-blog',
-  templateUrl: './blog.component.html',
-  preserveWhitespaces: true,
+  selector: 'blog-post',
+  templateUrl: './blog-post.component.html',
+  preserveWhitespaces: true, // TODO: これなに
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class BlogComponent implements OnInit {
