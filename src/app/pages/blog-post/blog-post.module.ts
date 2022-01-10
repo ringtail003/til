@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ScullyLibModule } from '@scullyio/ng-lib';
 import { BlogPostRoutingModule } from './blog-post-routing.module';
-import { BlogComponent } from './blog-post.component';
+import { BlogPostComponent } from './blog-post.component';
 
 @NgModule({
-  declarations: [BlogComponent],
+  declarations: [BlogPostComponent],
   imports: [CommonModule, BlogPostRoutingModule, ScullyLibModule],
 })
 export class BlogPostModule {}

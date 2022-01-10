@@ -6,7 +6,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   preserveWhitespaces: true, // TODO: これなに
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class BlogComponent implements OnInit {
+export class BlogPostComponent implements OnInit {
   ngOnInit() {}
 
   constructor() {}

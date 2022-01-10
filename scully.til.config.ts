@@ -18,6 +18,10 @@ export const config: ScullyConfig = {
     },
   },
   guessParserOptions: {
-    excludedFiles: ['./src/app/pages/list/list-routing.module.ts'],
+    excludedFiles: [
+      './src/app/pages/all-posts/all-posts-routing.module.ts',
+      './src/app/pages/recent-posts/recent-posts-routing.module.ts',
+      './src/app/pages/blog-post/blog-post-routing.module.ts',
+    ],
   },
 };
