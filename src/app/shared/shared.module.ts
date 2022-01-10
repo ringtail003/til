@@ -7,7 +7,7 @@ const declarations = [SplashStarDirective, SplashStarComponent];
 
 @NgModule({
   imports: [IconModule],
-  exports: [IconModule, ...declarations],
+  exports: declarations,
   declarations,
 })
 export class SharedModule {}

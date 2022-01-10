@@ -1,5 +1,9 @@
-<header class="py-10 pb-16 sticky top-0 bg-background bg-opacity-95">
-  <a [routerLink]="'/'" class="text-white font-semibold text-2xl"
-    >Today I learned.</a
-  >
+<header class="sticky top-0 py-10 pb-16 bg-background bg-opacity-95">
+  <div class="flex items-center gap-2">
+    <a [routerLink]="'/'" class="text-2xl font-semibold text-white w-7"
+      ><rocket-icon class="text-white"></rocket-icon
+    ></a>
+
+    <span class="text-2xl font-semibold text-white">Today I learned.</span>
+  </div>
 </header>
