@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ScullyRoute } from '@scullyio/ng-lib';
-import { BlogIndex } from 'src/app/pages/recent-posts/models/blog-index';
+import { BlogPost } from 'src/app/pages/recent-posts/models/blog-post';
 
 @Injectable({ providedIn: 'root' })
-export class BlogIndexConverter {
-  byScullyRoute(scullyRoute: ScullyRoute): BlogIndex {
+export class BlogPostConverter {
+  byScullyRoute(scullyRoute: ScullyRoute): BlogPost {
     if (!scullyRoute.title) {
       throw new Error(`title is empty.`);
     }
@@ -13,7 +13,7 @@ export class BlogIndexConverter {
       throw new Error(`updatedAt is empty.`);
     }
 
-    return new BlogIndex({
+    return new BlogPost({
       link: scullyRoute.route,
       title: scullyRoute.title,
       updatedAt: this.convertDate(scullyRoute.updatedAt),

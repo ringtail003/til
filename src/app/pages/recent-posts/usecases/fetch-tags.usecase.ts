@@ -7,7 +7,7 @@ import { Tag } from 'src/app/pages/recent-posts/models/tag';
 @Injectable({
   providedIn: 'root',
 })
-export class FetchTagUsecase {
+export class FetchTagsUsecase {
   constructor(
     private scullyRouteProvider: ScullyRouteProvider,
     private tagConverter: TagConverter

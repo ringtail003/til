@@ -1,4 +1,4 @@
-export class BlogIndex {
+export class BlogPost {
   #link: string;
   #title: string;
   #updatedAt: Date;

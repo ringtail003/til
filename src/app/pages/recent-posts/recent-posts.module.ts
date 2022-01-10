@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { BlogIndexComponent } from 'src/app/pages/recent-posts/components/blog-index/blog-index.component';
+import { BlogPostComponent } from 'src/app/pages/recent-posts/components/blog-post/blog-post.component';
 import { HeadingComponent } from 'src/app/pages/recent-posts/components/heading/heading.component';
 import { TagComponent } from 'src/app/pages/recent-posts/components/tag/tag.component';
 import { RecentPostsRoutingModule } from 'src/app/pages/recent-posts/recent-posts-routing.module';
@@ -8,7 +8,7 @@ import { RecentPostsComponent } from 'src/app/pages/recent-posts/recent-posts.co
 import { IconModule } from 'src/app/shared/icons/icon.module';
 
 const components = [
-  BlogIndexComponent,
+  BlogPostComponent,
   RecentPostsComponent,
   TagComponent,
   HeadingComponent,

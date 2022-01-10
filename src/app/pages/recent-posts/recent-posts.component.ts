@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { combineLatest, ReplaySubject, Subject } from 'rxjs';
-import { BlogIndex } from 'src/app/pages/recent-posts/models/blog-index';
+import { combineLatest, ReplaySubject } from 'rxjs';
+import { BlogPost } from 'src/app/pages/recent-posts/models/blog-post';
 import { Tag } from 'src/app/pages/recent-posts/models/tag';
 import { TagSelector } from 'src/app/pages/recent-posts/services/tag-selector';
-import { FetchBlogIndexUsecase } from 'src/app/pages/recent-posts/usecases/fetch-blog-index.usecase';
-import { FetchTagUsecase } from 'src/app/pages/recent-posts/usecases/fetch-tag.usecase';
+import { FetchBlogPostsUsecase } from 'src/app/pages/recent-posts/usecases/fetch-blog-posts.usecase';
+import { FetchTagsUsecase } from 'src/app/pages/recent-posts/usecases/fetch-tags.usecase';
 
 @Component({
   selector: 'recent-posts',
@@ -12,28 +12,28 @@ import { FetchTagUsecase } from 'src/app/pages/recent-posts/usecases/fetch-tag.u
   providers: [{ provide: TagSelector }],
 })
 export class RecentPostsComponent implements OnInit {
-  blogIndexes$ = new ReplaySubject<BlogIndex[]>(1);
+  blogPosts$ = new ReplaySubject<BlogPost[]>(1);
   tags$ = new ReplaySubject<Tag[]>();
 
   constructor(
-    private fetchBlogIndexUsecase: FetchBlogIndexUsecase,
-    private fetchTagUsecase: FetchTagUsecase,
+    private fetchBlogPostsUsecase: FetchBlogPostsUsecase,
+    private fetchTagUsecase: FetchTagsUsecase,
     private tagSelector: TagSelector
   ) {}
 
   ngOnInit() {
     combineLatest([
-      this.fetchBlogIndexUsecase.exec(),
+      this.fetchBlogPostsUsecase.exec(),
       this.fetchTagUsecase.exec(),
-    ]).subscribe(([blogIndexes, tags]) => {
-      this.blogIndexes$.next(blogIndexes);
+    ]).subscribe(([blogPosts, tags]) => {
+      this.blogPosts$.next(blogPosts);
       this.tags$.next(tags);
       this.tagSelector.tags = tags;
 
       this.tagSelector.watch().subscribe((tags) => {
-        this.blogIndexes$.next(
-          blogIndexes.filter((blogIndex) =>
-            blogIndex.some(
+        this.blogPosts$.next(
+          blogPosts.filter((blogPost) =>
+            blogPost.some(
               tags.filter((tag) => tag.isSelected).map((tag) => tag.label)
             )
           )
