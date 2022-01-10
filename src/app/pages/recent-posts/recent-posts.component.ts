@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { combineLatest, Subject } from 'rxjs';
+import { combineLatest, ReplaySubject, Subject } from 'rxjs';
 import { BlogIndex } from 'src/app/pages/recent-posts/models/blog-index';
 import { Tag } from 'src/app/pages/recent-posts/models/tag';
 import { TagSelector } from 'src/app/pages/recent-posts/services/tag-selector';
@@ -12,8 +12,8 @@ import { FetchTagUsecase } from 'src/app/pages/recent-posts/usecases/fetch-tag.u
   providers: [{ provide: TagSelector }],
 })
 export class RecentPostsComponent implements OnInit {
-  blogIndexes$ = new Subject<BlogIndex[]>();
-  tags$ = new Subject<Tag[]>();
+  blogIndexes$ = new ReplaySubject<BlogIndex[]>(1);
+  tags$ = new ReplaySubject<Tag[]>();
 
   constructor(
     private fetchBlogIndexUsecase: FetchBlogIndexUsecase,

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, ReplaySubject, Subject, takeUntil } from 'rxjs';
 import { BlogPost } from 'src/app/pages/all-posts/models/blog-post';
 import { FetchBlogPostUsecase } from 'src/app/pages/all-posts/usecases/fetch-blog-posts.usecase';
 
@@ -8,14 +8,12 @@ import { FetchBlogPostUsecase } from 'src/app/pages/all-posts/usecases/fetch-blo
   templateUrl: './all-posts.component.html',
 })
 export class AllPostsComponent implements OnInit {
-  blogPosts$ = new Subject<BlogPost[]>();
+  blogPosts$ = new ReplaySubject<BlogPost[]>(1);
 
   constructor(private fetchBlogPostUsecase: FetchBlogPostUsecase) {}
 
-  ngOnInit() {
-    console.log('hoge');
+  ngOnInit(): void {
     this.fetchBlogPostUsecase.exec().subscribe((blogPosts) => {
-      console.log(blogPosts);
       this.blogPosts$.next(blogPosts);
     });
   }
