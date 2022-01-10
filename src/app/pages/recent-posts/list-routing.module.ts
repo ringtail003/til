@@ -1,16 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListComponent } from 'src/app/pages/list/list.component';
+import { RecentPostsComponent } from 'src/app/pages/recent-posts/recent-posts.component';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'list',
-  },
-  {
-    path: 'list',
-    component: ListComponent,
+    component: RecentPostsComponent,
   },
 ];
 

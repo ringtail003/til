@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ScullyRoute } from '@scullyio/ng-lib';
-import { BlogIndex } from 'src/app/pages/list/models/blog-index';
+import { BlogIndex } from 'src/app/pages/recent-posts/models/blog-index';
 
 @Injectable({ providedIn: 'root' })
 export class BlogIndexConverter {

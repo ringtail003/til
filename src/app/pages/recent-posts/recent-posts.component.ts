@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { combineLatest, Subject } from 'rxjs';
-import { BlogIndex } from 'src/app/pages/list/models/blog-index';
-import { Tag } from 'src/app/pages/list/models/tag';
-import { TagSelector } from 'src/app/pages/list/services/tag-selector';
-import { FetchBlogIndexUsecase } from 'src/app/pages/list/usecases/fetch-blog-index.usecase';
-import { FetchTagUsecase } from 'src/app/pages/list/usecases/fetch-tag.usecase';
+import { BlogIndex } from 'src/app/pages/recent-posts/models/blog-index';
+import { Tag } from 'src/app/pages/recent-posts/models/tag';
+import { TagSelector } from 'src/app/pages/recent-posts/services/tag-selector';
+import { FetchBlogIndexUsecase } from 'src/app/pages/recent-posts/usecases/fetch-blog-index.usecase';
+import { FetchTagUsecase } from 'src/app/pages/recent-posts/usecases/fetch-tag.usecase';
 
 @Component({
-  selector: 'app-list',
+  selector: 'app-recent-posts',
   templateUrl: './list.component.html',
   providers: [{ provide: TagSelector }],
 })
-export class ListComponent implements OnInit {
+export class RecentPostsComponent implements OnInit {
   blogIndexes$ = new Subject<BlogIndex[]>();
   tags$ = new Subject<Tag[]>();
 

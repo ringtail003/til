@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, take } from 'rxjs';
-import { TagConverter } from 'src/app/pages/list/converter/tag.converter';
-import { ScullyRouteProvider } from 'src/app/pages/list/data-sources/scully-route.provider';
-import { Tag } from 'src/app/pages/list/models/tag';
+import { TagConverter } from 'src/app/pages/recent-posts/converter/tag.converter';
+import { ScullyRouteProvider } from 'src/app/pages/recent-posts/data-sources/scully-route.provider';
+import { Tag } from 'src/app/pages/recent-posts/models/tag';
 
 @Injectable({
   providedIn: 'root',

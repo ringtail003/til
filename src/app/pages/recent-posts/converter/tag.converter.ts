@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ScullyRoute } from '@scullyio/ng-lib';
-import { Tag } from 'src/app/pages/list/models/tag';
+import { Tag } from 'src/app/pages/recent-posts/models/tag';
 
 @Injectable({ providedIn: 'root' })
 export class TagConverter {

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ScullyRoute } from '@scullyio/ng-lib';
 import { map, Observable, take } from 'rxjs';
-import { BlogIndexConverter } from 'src/app/pages/list/converter/blog-index.converter';
-import { ScullyRouteProvider } from 'src/app/pages/list/data-sources/scully-route.provider';
-import { BlogIndex } from 'src/app/pages/list/models/blog-index';
+import { BlogIndexConverter } from 'src/app/pages/recent-posts/converter/blog-index.converter';
+import { ScullyRouteProvider } from 'src/app/pages/recent-posts/data-sources/scully-route.provider';
+import { BlogIndex } from 'src/app/pages/recent-posts/models/blog-index';
 import { InvalidBlogIndexError } from 'src/app/utils/errors/invalid-blog-index.error';
 
 @Injectable({

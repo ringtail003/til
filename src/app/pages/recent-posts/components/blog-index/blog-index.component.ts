@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BlogIndex } from 'src/app/pages/list/models/blog-index';
+import { BlogIndex } from 'src/app/pages/recent-posts/models/blog-index';
 
 @Component({
   selector: 'blog-index',

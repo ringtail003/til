@@ -6,7 +6,9 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     loadChildren: () =>
-      import('./pages/list/list.module').then((m) => m.ListModule),
+      import('./pages/recent-posts/recent-posts.module').then(
+        (m) => m.RecentPostsModule
+      ),
   },
   {
     path: 'blog',
