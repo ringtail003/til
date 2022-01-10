@@ -2,29 +2,41 @@
   <div class="grid grid-cols-7 max-w-7xl gap-x-12">
     <div class="order-2 col-span-7 xl:col-span-5 xl:order-1">
       <div *ngIf="blogPosts$ | async as blogPosts">
-        <heading>10 Recent Posts</heading>
+        <heading class="mb-8">10 Recent Posts</heading>
+
         <ul role="list" class="grid grid-cols-1 gap-4 xl:grid-cols-2">
-          <li *ngFor="let post of blogPosts; index as index">
+          <li *ngFor="let post of blogPosts; index as index" class="contents">
             <blog-post *ngIf="index < 10" [blogPost]="post"></blog-post>
           </li>
         </ul>
+
+        <a
+          [routerLink]="'list'"
+          class="flex items-center gap-1 mt-8 text-white cursor-pointer text-md hover:text-accent-200"
+        >
+          <right-allow-square-icon
+            class="flex-shrink-0 w-5"
+          ></right-allow-square-icon>
+
+          <span>Show all</span>
+        </a>
       </div>
     </div>
 
     <div role="navigation" class="order-1 col-span-7 xl:col-span-2 xl:order-2">
-      <heading>Posts</heading>
-      <div class="flex items-center gap-1 pb-8">
-        <right-allow-square-icon
-          class="flex-shrink-0 w-5 text-white"
-        ></right-allow-square-icon>
-        <a
-          [routerLink]="'list'"
-          class="text-white cursor-pointer text-md hover:text-accent-200"
-          >Show all</a
-        >
-      </div>
+      <heading class="block mb-4">Posts</heading>
 
-      <heading>Tags</heading>
+      <a
+        class="flex items-center gap-1 text-white cursor-pointer text-md hover:text-accent-200"
+      >
+        <right-allow-square-icon
+          class="flex-shrink-0 w-5"
+        ></right-allow-square-icon>
+
+        <span [routerLink]="'list'">Show all</span>
+      </a>
+
+      <heading class="block mt-8 mb-4">Tags</heading>
       <ul
         *ngIf="tags$ | async as tags"
         class="flex flex-row flex-wrap pb-8 gap-x-2 gap-y-4 xl:flex-col"

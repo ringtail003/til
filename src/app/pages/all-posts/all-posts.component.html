@@ -1,6 +1,18 @@
 <div class="2xl:mx-60 xl:mx-20">
   <div *ngIf="blogPosts$ | async as blogPosts">
-    <heading>All Posts</heading>
+    <div class="flex items-center justify-between">
+      <heading>All Posts</heading>
+      <a
+        [routerLink]="'/'"
+        class="flex items-center gap-1 text-white cursor-pointer text-md hover:text-accent-200"
+      >
+        <right-allow-square-icon
+          class="flex-shrink-0 w-5"
+        ></right-allow-square-icon>
+
+        <span>Recent posts</span>
+      </a>
+    </div>
     <ul role="list" class="grid grid-cols-1 gap-4">
       <li *ngFor="let post of blogPosts; index as index">
         <blog-post [blogPost]="post"></blog-post>
