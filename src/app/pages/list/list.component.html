@@ -2,6 +2,7 @@
   <div class="grid grid-cols-7 max-w-7xl gap-x-12">
     <div class="order-2 col-span-7 xl:col-span-5 xl:order-1">
       <div *ngIf="blogIndexes$ | async as blogIndexes">
+        <heading>10 Recent Posts</heading>
         <ul role="list" class="grid grid-cols-1 gap-4 xl:grid-cols-2">
           <li *ngFor="let blog of blogIndexes; index as index">
             <blog-index *ngIf="index < 10" [blogIndex]="blog"></blog-index>
@@ -11,8 +12,8 @@
     </div>
 
     <div role="navigation" class="order-1 col-span-7 xl:col-span-2 xl:order-2">
-      <h1 class="text-2xl text-accent-400">Posts</h1>
-      <div class="flex items-center gap-1 pt-4 pb-8">
+      <heading>Posts</heading>
+      <div class="flex items-center gap-1 pb-8">
         <right-allow-square-icon
           class="flex-shrink-0 w-5 text-white"
         ></right-allow-square-icon>
@@ -21,10 +22,10 @@
         >
       </div>
 
-      <h1 class="text-2xl text-accent-400">Tags</h1>
+      <heading>Tags</heading>
       <ul
         *ngIf="tags$ | async as tags"
-        class="flex flex-row flex-wrap pt-4 pb-8 gap-x-2 gap-y-4 xl:flex-col"
+        class="flex flex-row flex-wrap pb-8 gap-x-2 gap-y-4 xl:flex-col"
       >
         <li *ngFor="let tag of tags" class="flex-shrink-0">
           <tag [tag]="tag"></tag>
