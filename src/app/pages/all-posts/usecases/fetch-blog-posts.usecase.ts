@@ -19,12 +19,12 @@ export class FetchBlogPostUsecase {
     return this.scullyRouteProvider.fetch().pipe(
       take(1),
       map((scullyRoutes) => this.convertArray(scullyRoutes)),
-      map((blogIndexes) => this.sortDesc(blogIndexes))
+      map((blogPosts) => this.sortDesc(blogPosts))
     );
   }
 
-  private sortDesc(blogIndexes: BlogPost[]): BlogPost[] {
-    const list = Array.from(blogIndexes);
+  private sortDesc(blogPosts: BlogPost[]): BlogPost[] {
+    const list = Array.from(blogPosts);
 
     list.sort((a, b) => {
       const timeA = a.updatedAt.getTime();

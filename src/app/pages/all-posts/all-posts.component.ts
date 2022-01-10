@@ -13,7 +13,9 @@ export class AllPostsComponent implements OnInit {
   constructor(private fetchBlogPostUsecase: FetchBlogPostUsecase) {}
 
   ngOnInit() {
+    console.log('hoge');
     this.fetchBlogPostUsecase.exec().subscribe((blogPosts) => {
+      console.log(blogPosts);
       this.blogPosts$.next(blogPosts);
     });
   }

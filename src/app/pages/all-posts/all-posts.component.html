@@ -1,7 +1,7 @@
-<div class="px-0 xl:px-20 2xl:px-60">
+<div class="2xl:mx-60 xl:mx-20">
   <div *ngIf="blogPosts$ | async as blogPosts">
-    <heading>10 Recent Posts</heading>
-    <ul role="list" class="grid grid-cols-1 gap-4 xl:grid-cols-2">
+    <heading>All Posts</heading>
+    <ul role="list" class="grid grid-cols-1 gap-4">
       <li *ngFor="let post of blogPosts; index as index">
         <blog-post [blogPost]="post"></blog-post>
       </li>

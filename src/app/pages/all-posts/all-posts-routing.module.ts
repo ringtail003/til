@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RecentPostsComponent } from 'src/app/pages/recent-posts/recent-posts.component';
+import { AllPostsComponent } from 'src/app/pages/all-posts/all-posts.component';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: RecentPostsComponent,
+    component: AllPostsComponent,
   },
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class RecentPostsRoutingModule {}
+export class AllPostsRoutingModule {}
