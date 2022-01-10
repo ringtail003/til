@@ -7,8 +7,8 @@ import { FetchBlogIndexUsecase } from 'src/app/pages/recent-posts/usecases/fetch
 import { FetchTagUsecase } from 'src/app/pages/recent-posts/usecases/fetch-tag.usecase';
 
 @Component({
-  selector: 'app-recent-posts',
-  templateUrl: './list.component.html',
+  selector: 'recent-posts',
+  templateUrl: './recent-posts.component.html',
   providers: [{ provide: TagSelector }],
 })
 export class RecentPostsComponent implements OnInit {
