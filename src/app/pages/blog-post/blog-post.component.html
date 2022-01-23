@@ -1,1 +1,24 @@
-<scully-content></scully-content>
+<div *ngIf="blogPost" class="2xl:mx-60 xl:mx-20">
+  <div class="flex items-center justify-between">
+    <div>
+      <time class="text-sm text-accent-400">{{
+        blogPost.updatedAt | date: "yyyy-MM-dd"
+      }}</time>
+      <heading>{{ blogPost.title }}</heading>
+    </div>
+    <a
+      [routerLink]="'/'"
+      class="flex items-center gap-1 text-white cursor-pointer text-md hover:text-accent-200"
+    >
+      <right-allow-square-icon
+        class="flex-shrink-0 w-5"
+      ></right-allow-square-icon>
+
+      <span>Recent posts</span>
+    </a>
+  </div>
+
+  <article class="bg-gray-800 rounded-lg p-8 scully-content text-white">
+    <scully-content></scully-content>
+  </article>
+</div>
