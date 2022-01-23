@@ -12,22 +12,26 @@
 @layer components {
   .scully-content {
     h2 {
-      @apply text-2xl py-4 mb-4 font-bold border-b-2 text-accent-900;
+      @apply text-2xl py-4 mb-8 font-bold border-b-2 border-accent-300 text-accent-300;
     }
     h3 {
-      @apply text-xl mt-4 py-6 font-bold;
+      @apply text-xl mt-6 py-6 mb-4 font-bold text-accent-300 border-b-2 border-accent-300;
     }
 
     p {
-      @apply py-4
+      @apply pb-6;
     }
 
     a {
       @apply text-accent-400 hover:text-accent-600;
     }
 
+    code {
+      @apply bg-gray-600 px-1 rounded-md text-gray-800 font-bold;
+    }
+
     pre {
-      @apply bg-gray-600 p-6 rounded-lg
+      @apply rounded-lg my-2;
     }
   }
 }
