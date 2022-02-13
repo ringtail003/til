@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BlogFooterComponent } from 'src/app/shared/components/blog-footer/blog-footer.component';
@@ -14,7 +15,7 @@ const declarations = [
 ];
 
 @NgModule({
-  imports: [RouterModule, IconModule],
+  imports: [CommonModule, RouterModule, IconModule],
   exports: declarations,
   declarations,
 })

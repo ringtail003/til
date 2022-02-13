@@ -5,6 +5,7 @@ import { Tag } from 'src/app/pages/recent-posts/models/tag';
 import { TagSelector } from 'src/app/pages/recent-posts/services/tag-selector';
 import { FetchBlogPostsUsecase } from 'src/app/pages/recent-posts/usecases/fetch-blog-posts.usecase';
 import { FetchTagsUsecase } from 'src/app/pages/recent-posts/usecases/fetch-tags.usecase';
+import { LoginService } from 'src/app/shared/login.service';
 
 @Component({
   selector: 'recent-posts',
@@ -14,11 +15,13 @@ import { FetchTagsUsecase } from 'src/app/pages/recent-posts/usecases/fetch-tags
 export class RecentPostsComponent implements OnInit {
   blogPosts$ = new ReplaySubject<BlogPost[]>(1);
   tags$ = new ReplaySubject<Tag[]>();
+  login$ = this.loginService.login$;
 
   constructor(
     private fetchBlogPostsUsecase: FetchBlogPostsUsecase,
     private fetchTagUsecase: FetchTagsUsecase,
-    private tagSelector: TagSelector
+    private tagSelector: TagSelector,
+    private loginService: LoginService
   ) {}
 
   ngOnInit() {
@@ -43,4 +46,6 @@ export class RecentPostsComponent implements OnInit {
       });
     });
   }
+
+  onPost(): void {}
 }

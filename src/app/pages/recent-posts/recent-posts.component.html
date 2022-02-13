@@ -2,7 +2,16 @@
   <div class="grid grid-cols-7 max-w-7xl gap-x-12">
     <div class="order-2 col-span-7 xl:col-span-5 xl:order-1">
       <div *ngIf="blogPosts$ | async as blogPosts">
-        <heading class="mb-8">10 Recent Posts</heading>
+        <div class="flex justify-between">
+          <heading>10 Recent Posts</heading>
+          <a
+            *ngIf="login$ | async"
+            class="flex items-center text-white hover:text-accent-400 cursor-pointer"
+            (click)="onPost()"
+          >
+            <edit-icon class="flex-shrink-0 w-5"></edit-icon>
+          </a>
+        </div>
 
         <ul role="list" class="grid grid-cols-1 gap-4 xl:grid-cols-2">
           <li *ngFor="let post of blogPosts; index as index" class="contents">
