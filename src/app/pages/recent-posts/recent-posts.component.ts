@@ -46,6 +46,4 @@ export class RecentPostsComponent implements OnInit {
       });
     });
   }
-
-  onPost(): void {}
 }

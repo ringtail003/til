@@ -24,6 +24,11 @@ const routes: Routes = [
         (m) => m.BlogPostModule
       ),
   },
+  {
+    path: 'new',
+    loadChildren: () =>
+      import('./pages/new-post/new-post.module').then((m) => m.NewPostModule),
+  },
 ];
 
 @NgModule({

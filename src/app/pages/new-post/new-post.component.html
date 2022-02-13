@@ -1,0 +1,26 @@
+<div class="m-6">
+  <a
+    [routerLink]="'/'"
+    class="flex items-center gap-1 text-white cursor-pointer text-md hover:text-accent-200"
+  >
+    <right-allow-square-icon
+      class="flex-shrink-0 w-5"
+    ></right-allow-square-icon>
+
+    <span>Recent posts</span>
+  </a>
+</div>
+
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-6 m-6">
+  <div class="border border-gray-800 rounded-md p-6 shadow-2xl">
+    <new-post-editor
+      [blogPost]="blogPost"
+      (onChangeTitle)="onChangeTitle($event)"
+      (onChangeBody)="onChangeBody($event)"
+    ></new-post-editor>
+  </div>
+
+  <div class="border border-gray-800 rounded-md p-6 shadow-2xl">
+    <new-post-viewer [blogPost]="blogPost"></new-post-viewer>
+  </div>
+</div>

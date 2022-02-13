@@ -1,0 +1,16 @@
+<div class="flex flex-col gap-6">
+  <input
+    type="text"
+    [value]="blogPost.title"
+    class="w-full"
+    (change)="onChangeTitle.emit(title.value)"
+    #title
+  />
+
+  <textarea
+    class="w-full h-[500px]"
+    [value]="blogPost.body"
+    (change)="onChangeBody.emit(body.value)"
+    #body
+  ></textarea>
+</div>

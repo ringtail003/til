@@ -6,8 +6,8 @@
           <heading>10 Recent Posts</heading>
           <a
             *ngIf="login$ | async"
+            [routerLink]="'/new'"
             class="flex items-center text-white hover:text-accent-400 cursor-pointer"
-            (click)="onPost()"
           >
             <edit-icon class="flex-shrink-0 w-5"></edit-icon>
           </a>
