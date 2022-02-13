@@ -1,4 +1,4 @@
-<div class="m-6">
+<div class="m-6 flex justify-between items-start">
   <a
     [routerLink]="'/'"
     class="flex items-center gap-1 text-white cursor-pointer text-md hover:text-accent-200"
@@ -9,6 +9,8 @@
 
     <span>Recent posts</span>
   </a>
+
+  <create-pr-button (onClick)="onCreatePrButtonClick()"></create-pr-button>
 </div>
 
 <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 m-6">

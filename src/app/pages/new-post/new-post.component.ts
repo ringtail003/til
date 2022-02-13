@@ -19,4 +19,8 @@ export class NewPostComponent implements OnInit {
   onChangeBody($event: string): void {
     this.blogPost.body = $event;
   }
+
+  onCreatePrButtonClick(): void {
+    // TODO:
+  }
 }

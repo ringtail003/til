@@ -44,4 +44,8 @@
   textarea {
     @apply rounded-md p-4 shadow-gray-400 shadow-inner text-gray-800 focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-accent-500;
   }
+
+  .button-primary {
+    @apply py-2 px-4 rounded-md border border-white text-white hover:bg-accent-500 focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-accent-500;
+  }
 }
