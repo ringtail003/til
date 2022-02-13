@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: 'foobar',
-    authDomain: 'foobar.com',
+    apiKey: 'AIzaSyAFRsIaxjHDcTb_qjwFIDQOFSeGkyJhW5M',
+    authDomain: 'ringtail003-til.firebaseapp.com',
   },
 };
 
