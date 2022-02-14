@@ -10,7 +10,7 @@
   <textarea
     class="w-full h-[500px]"
     [value]="blogPost.body"
-    (change)="onChangeBody.emit(body.value)"
+    (keydown)="onChangeBody.emit(body.value)"
     #body
   ></textarea>
 </div>
