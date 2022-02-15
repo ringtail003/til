@@ -6,6 +6,7 @@ import { NewPostViewerComponent } from 'src/app/pages/new-post/components/new-po
 import { NewPostRoutingModule } from 'src/app/pages/new-post/new-post-routing.module';
 import { NewPostComponent } from 'src/app/pages/new-post/new-post.component';
 import { IconModule } from 'src/app/shared/icons/icon.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const components = [
   NewPostComponent,
@@ -16,6 +17,6 @@ const components = [
 
 @NgModule({
   declarations: components,
-  imports: [CommonModule, NewPostRoutingModule, IconModule],
+  imports: [CommonModule, NewPostRoutingModule, SharedModule, IconModule],
 })
 export class NewPostModule {}

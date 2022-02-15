@@ -38,11 +38,11 @@
 
 @layer components {
   input {
-    @apply rounded-md p-2 shadow-gray-400 shadow-inner text-gray-800 focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-accent-500;
+    @apply rounded-md p-2 shadow-gray-400 shadow-inner text-gray-800 focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-accent-500 text-sm;
   }
 
   textarea {
-    @apply rounded-md p-4 shadow-gray-400 shadow-inner text-gray-800 focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-accent-500;
+    @apply rounded-md p-4 shadow-gray-400 shadow-inner text-gray-800 focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-accent-500 text-sm;
   }
 
   .button-primary {

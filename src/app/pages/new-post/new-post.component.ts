@@ -1,29 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { BlogPost } from 'src/app/pages/new-post/models/blog-post';
 import * as Rx from 'rxjs';
+import { BlogPost } from 'src/app/pages/new-post/models/blog-post';
 
 @Component({
   selector: 'new-post',
   templateUrl: './new-post.component.html',
 })
 export class NewPostComponent implements OnInit {
-  blogPost!: BlogPost;
-  body$ = new Rx.Subject<string>();
+  patch$ = new Rx.Subject<Partial<BlogPost>>();
+  blogPost = new BlogPost();
 
   ngOnInit(): void {
-    this.blogPost = new BlogPost();
-
-    this.body$.pipe(Rx.debounceTime(500)).subscribe((value) => {
-      this.blogPost.body = value;
+    this.patch$.pipe(Rx.debounceTime(500)).subscribe((value) => {
+      value.title && (this.blogPost.title = value.title);
+      value.body && (this.blogPost.body = value.body);
     });
   }
 
   onChangeTitle($event: string): void {
-    this.blogPost.title = $event;
+    this.patch$.next({ title: $event });
   }
 
   onChangeBody($event: string): void {
-    this.body$.next($event);
+    this.patch$.next({ body: $event });
   }
 
   onCreatePrButtonClick(): void {

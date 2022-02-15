@@ -6,12 +6,14 @@ import { BlogHeaderComponent } from 'src/app/shared/components/blog-header/blog-
 import { SplashStarComponent } from 'src/app/shared/components/splash-star.component';
 import { SplashStarDirective } from 'src/app/shared/directives/splash-star.directive';
 import { IconModule } from 'src/app/shared/icons/icon.module';
+import { SanitizePipe } from 'src/app/shared/pipes/sanitize.pipe';
 
 const declarations = [
   SplashStarDirective,
   SplashStarComponent,
   BlogHeaderComponent,
   BlogFooterComponent,
+  SanitizePipe,
 ];
 
 @NgModule({

@@ -1,16 +1,15 @@
 <div class="flex flex-col gap-6">
   <input
     type="text"
-    [value]="blogPost.title"
+    [value]="title"
     class="w-full"
-    (change)="onChangeTitle.emit(title.value)"
-    #title
+    (keydown)="onChangeTitle.emit(titleElement.value)"
+    #titleElement
   />
 
   <textarea
     class="w-full h-[500px]"
-    [value]="blogPost.body"
-    (keydown)="onChangeBody.emit(body.value)"
-    #body
+    (keydown)="onChangeBody.emit(bodyElement.value)"
+    #bodyElement
   ></textarea>
 </div>

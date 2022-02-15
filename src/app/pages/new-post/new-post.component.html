@@ -16,13 +16,18 @@
 <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 m-6">
   <div class="border border-gray-800 rounded-md p-6 shadow-2xl">
     <new-post-editor
-      [blogPost]="blogPost"
+      [title]="blogPost.title"
+      [body]="blogPost.body"
       (onChangeTitle)="onChangeTitle($event)"
       (onChangeBody)="onChangeBody($event)"
     ></new-post-editor>
   </div>
 
   <div class="border border-gray-800 rounded-md p-6 shadow-2xl">
-    <new-post-viewer [blogPost]="blogPost"></new-post-viewer>
+    <new-post-viewer
+      [updatedAt]="blogPost.updatedAt"
+      [title]="blogPost.title"
+      [body]="blogPost.bodyAsHtml"
+    ></new-post-viewer>
   </div>
 </div>

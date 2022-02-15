@@ -1,16 +1,16 @@
+import { marked } from 'marked';
+
 export class BlogPost {
   #title: string;
   #updatedAt: Date;
   #body: string;
+  #bodyAsHtml: string;
 
   constructor() {
-    this.#title = 'サンプルタイトル';
+    this.#title = '';
     this.#updatedAt = new Date();
-    this.#body = `## 見出し
-
-### 中見出し
-
-    `;
+    this.#body = '';
+    this.#bodyAsHtml = '';
   }
 
   get title(): string {
@@ -25,6 +25,11 @@ export class BlogPost {
   }
   set body(value: string) {
     this.#body = value;
+    this.#bodyAsHtml = marked.parse(value);
+  }
+
+  get bodyAsHtml(): string {
+    return this.#bodyAsHtml;
   }
 
   get updatedAt(): Date {
