@@ -1,15 +1,15 @@
 <div class="xl:mx-20 2xl:mx-60">
-  <div class="grid grid-cols-7 max-w-7xl gap-x-12">
-    <div class="order-2 col-span-7 xl:col-span-5 xl:order-1">
+  <div class="grid max-w-7xl grid-cols-7 gap-x-12">
+    <div class="order-2 col-span-7 xl:order-1 xl:col-span-5">
       <div *ngIf="blogPosts$ | async as blogPosts">
         <div class="flex justify-between">
           <heading>10 Recent Posts</heading>
           <a
             *ngIf="login$ | async"
             [routerLink]="'/new'"
-            class="flex items-center text-white hover:text-accent-400 cursor-pointer"
+            class="flex cursor-pointer items-center text-white hover:text-accent-400"
           >
-            <edit-icon class="flex-shrink-0 w-5"></edit-icon>
+            <edit-icon class="w-5 flex-shrink-0"></edit-icon>
           </a>
         </div>
 
@@ -21,10 +21,10 @@
 
         <a
           [routerLink]="'list'"
-          class="flex items-center gap-1 mt-8 text-white cursor-pointer text-md hover:text-accent-200"
+          class="text-md mt-8 flex cursor-pointer items-center gap-1 text-white hover:text-accent-200"
         >
           <right-allow-square-icon
-            class="flex-shrink-0 w-5"
+            class="w-5 flex-shrink-0"
           ></right-allow-square-icon>
 
           <span>Show all</span>
@@ -32,23 +32,23 @@
       </div>
     </div>
 
-    <div role="navigation" class="order-1 col-span-7 xl:col-span-2 xl:order-2">
-      <heading class="block mb-4">Posts</heading>
+    <div role="navigation" class="order-1 col-span-7 xl:order-2 xl:col-span-2">
+      <heading class="mb-4 block">Posts</heading>
 
       <a
-        class="flex items-center gap-1 text-white cursor-pointer text-md hover:text-accent-200"
+        class="text-md flex cursor-pointer items-center gap-1 text-white hover:text-accent-200"
       >
         <right-allow-square-icon
-          class="flex-shrink-0 w-5"
+          class="w-5 flex-shrink-0"
         ></right-allow-square-icon>
 
         <span [routerLink]="'list'">Show all</span>
       </a>
 
-      <heading class="block mt-8 mb-4">Tags</heading>
+      <heading class="mt-8 mb-4 block">Tags</heading>
       <ul
         *ngIf="tags$ | async as tags"
-        class="flex flex-row flex-wrap pb-8 gap-x-2 gap-y-4 xl:flex-col"
+        class="flex flex-row flex-wrap gap-x-2 gap-y-4 pb-8 xl:flex-col"
       >
         <li *ngFor="let tag of tags" class="flex-shrink-0">
           <tag [tag]="tag"></tag>

@@ -1,39 +1,39 @@
 <header
-  class="sticky top-0 py-8 bg-background bg-opacity-95 flex justify-between items-center"
+  class="sticky top-0 flex items-center justify-between bg-background bg-opacity-95 py-8"
 >
   <div class="flex items-center gap-2">
-    <a [routerLink]="'/'" class="text-2xl font-semibold text-white w-7"
+    <a [routerLink]="'/'" class="w-7 text-2xl font-semibold text-white"
       ><rocket-icon class="text-white"></rocket-icon
     ></a>
 
     <span class="text-2xl font-semibold text-white">Today I learned.</span>
   </div>
 
-  <div class="flex gap-4 items-center">
+  <div class="flex items-center gap-4">
     <a
-      class="flex text-white hover:text-accent-400 cursor-pointer"
+      class="flex cursor-pointer text-white hover:text-accent-400"
       href="https://github.com/ringtail003/til"
       target="_blank"
     >
-      <logo-github-icon class="flex-shrink-0 w-8"></logo-github-icon>
+      <logo-github-icon class="w-8 flex-shrink-0"></logo-github-icon>
     </a>
     <a
-      class="flex text-white hover:text-accent-400 cursor-pointer"
+      class="flex cursor-pointer text-white hover:text-accent-400"
       href="https://twitter.com/ringtail003"
       target="_blank"
     >
-      <logo-twitter-icon class="flex-shrink-0 w-8"></logo-twitter-icon>
+      <logo-twitter-icon class="w-8 flex-shrink-0"></logo-twitter-icon>
     </a>
 
     <a
       *ngIf="!isLoggedIn"
-      class="text-white hover:text-accent-400 cursor-pointer"
+      class="cursor-pointer text-white hover:text-accent-400"
       (click)="onLogin()"
       >Login</a
     >
     <a
       *ngIf="isLoggedIn"
-      class="text-white hover:text-accent-400 cursor-pointer"
+      class="cursor-pointer text-white hover:text-accent-400"
       (click)="onLogout()"
       >Logout</a
     >

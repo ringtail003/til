@@ -1,29 +1,12 @@
 <a
   *ngIf="!tag.isSelected"
-  class="
-    p-1
-    px-4
-    text-white
-    bg-background
-    border border-white
-    cursor-pointer
-    hover:bg-gray-700
-    rounded-2xl
-  "
+  class="cursor-pointer rounded-2xl border border-white bg-background p-1 px-4 text-white hover:bg-gray-700"
   (click)="onToggle(tag)"
   >{{ tag.label }}</a
 >
 <a
   *ngIf="tag.isSelected"
-  class="
-    p-1
-    px-4
-    text-white
-    bg-gray-800
-    border border-white
-    cursor-pointer
-    rounded-2xl
-  "
+  class="cursor-pointer rounded-2xl border border-white bg-gray-800 p-1 px-4 text-white"
   (click)="onToggle(tag)"
   >{{ tag.label }}</a
 >

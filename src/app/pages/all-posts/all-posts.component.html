@@ -1,13 +1,13 @@
-<div class="2xl:mx-60 xl:mx-20">
+<div class="xl:mx-20 2xl:mx-60">
   <div *ngIf="blogPosts$ | async as blogPosts">
     <div class="flex items-center justify-between">
       <heading>All Posts</heading>
       <a
         [routerLink]="'/'"
-        class="flex items-center gap-1 text-white cursor-pointer text-md hover:text-accent-200"
+        class="text-md flex cursor-pointer items-center gap-1 text-white hover:text-accent-200"
       >
         <right-allow-square-icon
-          class="flex-shrink-0 w-5"
+          class="w-5 flex-shrink-0"
         ></right-allow-square-icon>
 
         <span>Recent posts</span>

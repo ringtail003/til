@@ -1,7 +1,7 @@
 <article>
   <a
     [routerLink]="blogPost.link"
-    class="flex flex-col gap-2 p-8 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700"
+    class="flex cursor-pointer flex-col gap-2 rounded-lg bg-gray-800 p-8 hover:bg-gray-700"
   >
     <div>
       <time class="text-sm font-light text-white">{{
@@ -9,9 +9,9 @@
       }}</time>
     </div>
 
-    <div class="flex items-start gap-1 mb-4">
+    <div class="mb-4 flex items-start gap-1">
       <right-allow-square-icon
-        class="flex-shrink-0 w-6 pt-1 text-accent-400"
+        class="w-6 flex-shrink-0 pt-1 text-accent-400"
       ></right-allow-square-icon>
       <p class="h-24 text-2xl font-bold text-accent-400">
         {{ blogPost.title }}
@@ -21,7 +21,7 @@
     <div class="flex gap-1">
       <p
         *ngFor="let tag of blogPost.tags"
-        class="px-2 py-1 text-xs text-center text-white border border-white rounded-2xl min-w-20"
+        class="min-w-20 rounded-2xl border border-white px-2 py-1 text-center text-xs text-white"
       >
         {{ tag }}
       </p>

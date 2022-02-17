@@ -1,10 +1,10 @@
-<div class="m-6 flex justify-between items-start">
+<div class="m-6 flex items-start justify-between">
   <a
     [routerLink]="'/'"
-    class="flex items-center gap-1 text-white cursor-pointer text-md hover:text-accent-200"
+    class="text-md flex cursor-pointer items-center gap-1 text-white hover:text-accent-200"
   >
     <right-allow-square-icon
-      class="flex-shrink-0 w-5"
+      class="w-5 flex-shrink-0"
     ></right-allow-square-icon>
 
     <span>Recent posts</span>
@@ -13,8 +13,8 @@
   <create-pr-button (onClick)="onCreatePrButtonClick()"></create-pr-button>
 </div>
 
-<div class="grid grid-cols-1 xl:grid-cols-2 gap-6 m-6">
-  <div class="border border-gray-800 rounded-md p-6 shadow-2xl">
+<div class="m-6 grid grid-cols-1 gap-6 xl:grid-cols-2">
+  <div class="rounded-md border border-gray-800 p-6 shadow-2xl">
     <new-post-editor
       [title]="blogPost.title"
       [body]="blogPost.body"
@@ -23,7 +23,7 @@
     ></new-post-editor>
   </div>
 
-  <div class="border border-gray-800 rounded-md p-6 shadow-2xl">
+  <div class="rounded-md border border-gray-800 p-6 shadow-2xl">
     <new-post-viewer
       [updatedAt]="blogPost.updatedAt"
       [title]="blogPost.title"

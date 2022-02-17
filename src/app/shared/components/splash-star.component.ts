@@ -10,7 +10,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 @Component({
   template: `<star-icon
     [@blink]="state"
-    class="text-yellow-200 w-2"
+    class="w-2 text-yellow-200"
   ></star-icon>`,
   animations: [
     trigger('blink', [

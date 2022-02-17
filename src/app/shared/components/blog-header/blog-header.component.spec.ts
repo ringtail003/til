@@ -11,9 +11,8 @@ describe('BlogHeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BlogHeaderComponent ]
-    })
-    .compileComponents();
+      declarations: [BlogHeaderComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
