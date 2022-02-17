@@ -7,10 +7,9 @@ export class BlogPost {
   #bodyAsHtml: string;
 
   constructor() {
-    this.#title =
-      'サンプルタイトルサンプルタイトル12345サンプルタイトルサンプルタイトル12345サンプルタイトルサンプルタイトル12345';
+    this.#title = '';
     this.#updatedAt = new Date();
-    this.#body = '本文';
+    this.#body = '';
     this.#bodyAsHtml = '';
   }
 
