@@ -4,15 +4,22 @@
       type="text"
       class="w-full"
       placeholder="サンプルタイトル"
-      (keydown)="onChangeTitle.emit(titleElement.value)"
+      (keyup)="onChangeTitle.emit(titleElement.value)"
       #titleElement
     />
   </div>
 
-  <textarea
-    class="h-[500px] w-full"
-    placeholder="本文"
-    (keydown)="onChangeBody.emit(bodyElement.value)"
-    #bodyElement
-  ></textarea>
+  <div>
+    <div class="mb-2">
+      <insert-snippet-buttons
+        (onInsert)="onInsertSnippet($event)"
+      ></insert-snippet-buttons>
+    </div>
+    <textarea
+      class="h-[500px] w-full"
+      placeholder="本文"
+      (keyup)="onChangeBody.emit(bodyElement.value)"
+      #bodyElement
+    ></textarea>
+  </div>
 </div>

@@ -45,10 +45,13 @@
     @apply rounded-md p-4 shadow-gray-400 shadow-inner text-gray-800 focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-accent-500 text-sm;
   }
 
+  .button-sm {
+    @apply py-1 px-2 rounded-md text-xs;
+  }
   .button-md {
     @apply py-1 px-3 rounded-md;
   }
-  .button-primary {
+  .button-white-outline {
     @apply border border-white text-white hover:bg-accent-500 focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-accent-500;
   }
 }
