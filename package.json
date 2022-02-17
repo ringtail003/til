@@ -64,6 +64,8 @@
     "marked": "^4.0.12",
     "open": "^7.0.3",
     "postcss": "^8.4.4",
+    "prettier": "^2.5.1",
+    "prettier-plugin-tailwindcss": "^0.1.7",
     "protractor": "~7.0.0",
     "rxjs": "~7.4.0",
     "tailwindcss": "^3.0.7",
