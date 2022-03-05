@@ -7,9 +7,19 @@
     @apply bg-background pl-16 pb-16 pr-16;
     scrollbar-gutter: stable;
   }
+  input {
+    @apply rounded-md p-2 shadow-gray-400 shadow-inner text-gray-800 focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-accent-500 text-sm;
+  }
+
+  textarea {
+    @apply rounded-md p-4 shadow-gray-400 shadow-inner text-gray-800 focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-accent-500 text-sm;
+  }
+  a {
+    @apply focus:outline-none focus:outline-2 focus:outline-offset-4 rounded-md focus:outline-accent-500;
+  }
 }
 
-@layer components {
+@layer utilities {
   .scully-content {
     h2 {
       @apply text-2xl py-4 mb-8 font-bold border-b-2 border-accent-300 text-accent-300;
@@ -37,14 +47,6 @@
 }
 
 @layer components {
-  input {
-    @apply rounded-md p-2 shadow-gray-400 shadow-inner text-gray-800 focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-accent-500 text-sm;
-  }
-
-  textarea {
-    @apply rounded-md p-4 shadow-gray-400 shadow-inner text-gray-800 focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-accent-500 text-sm;
-  }
-
   .button-sm {
     @apply py-1 px-2 rounded-md text-xs;
   }
@@ -52,6 +54,23 @@
     @apply py-1 px-3 rounded-md;
   }
   .button-white-outline {
+    @apply border border-white text-white hover:bg-accent-500 focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-accent-500;
+  }
+
+  .group-button-sm {
+    @apply py-1 px-2 text-xs;
+
+    &.first {
+      @apply rounded-l-md;
+    }
+    &.center {
+      @apply rounded-l-md;
+    }
+    &.last {
+      @apply rounded-r-md;
+    }
+  }
+  .group-button-white-outline {
     @apply border border-white text-white hover:bg-accent-500 focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-accent-500;
   }
 }
