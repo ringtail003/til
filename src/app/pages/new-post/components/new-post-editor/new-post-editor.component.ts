@@ -11,6 +11,8 @@ import {
   SnippetConverter,
   SnippetKey,
 } from 'src/app/pages/new-post/components/snippet-converter.service';
+import { Tag } from 'src/app/pages/new-post/models/tag';
+import { FetchTagsUsecase } from 'src/app/pages/new-post/usecases/fetch-tags.usecase';
 
 @Component({
   selector: 'new-post-editor',
@@ -26,9 +28,18 @@ export class NewPostEditorComponent implements OnInit {
   onChangeTitle = new EventEmitter<string>();
   @Output() onChangeBody = new EventEmitter<string>();
 
-  constructor(private snippetConverter: SnippetConverter) {}
+  tags: Tag[] = [];
 
-  ngOnInit(): void {}
+  constructor(
+    private snippetConverter: SnippetConverter,
+    private fetchTagsUsecase: FetchTagsUsecase
+  ) {}
+
+  ngOnInit(): void {
+    this.fetchTagsUsecase.exec().subscribe((tags) => {
+      this.tags = tags;
+    });
+  }
 
   onSnippetSelected(snippetKey: SnippetKey): void {
     const element = this.bodyElement.nativeElement as HTMLTextAreaElement;
