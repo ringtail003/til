@@ -8,8 +8,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
-  Snippet,
   SnippetConverter,
+  SnippetKey,
 } from 'src/app/pages/new-post/components/snippet-converter.service';
 
 @Component({
@@ -30,14 +30,14 @@ export class NewPostEditorComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onInsertSnippet(snippet: Snippet): void {
+  onSnippetSelected(snippetKey: SnippetKey): void {
     const element = this.bodyElement.nativeElement as HTMLTextAreaElement;
 
-    const body = this.snippetConverter.insert(
+    const body = this.snippetConverter.convert(
       this.body,
       element.selectionStart,
       element.selectionEnd,
-      snippet
+      snippetKey
     );
 
     this.bodyElement.nativeElement.value = body;

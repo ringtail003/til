@@ -11,9 +11,7 @@
 
   <div>
     <div class="mb-2">
-      <insert-snippet-buttons
-        (onInsert)="onInsertSnippet($event)"
-      ></insert-snippet-buttons>
+      <snippet-buttons (onSelect)="onSnippetSelected($event)"></snippet-buttons>
     </div>
     <textarea
       class="h-[500px] w-full"
