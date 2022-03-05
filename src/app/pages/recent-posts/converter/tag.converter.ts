@@ -21,7 +21,7 @@ export class TagConverter {
   }
 
   private unique(labels: string[]): string[] {
-    return Array.from(new Set(labels).values());
+    return [...new Set(labels)];
   }
 
   private sort(labels: string[]): string[] {
