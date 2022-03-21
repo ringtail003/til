@@ -12,11 +12,11 @@ published: true
 
 ## 次のリリース
 
-2022/05あたりかな。
+不定期。
 
 ## アナウンス
 
-https://tc39.es/ecma262/
+https://github.com/tc39/ecma262/releases
 
 ## ソース
 
