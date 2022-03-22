@@ -1,7 +1,7 @@
 ---
-title: 
+title: Finished Proposal
 description: null
-tags: null
+tags: ecmascript
 updatedAt: 2022-03-21
 published: true
 ---
