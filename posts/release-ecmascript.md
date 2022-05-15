@@ -10,10 +10,6 @@ published: true
 
 1年に1回。
 
-## 次のリリース
-
-不定期。
-
 ## アナウンス
 
 https://github.com/tc39/ecma262/releases
