@@ -19,3 +19,7 @@ https://devblogs.microsoft.com/typescript/
 ## ソース
 
 https://github.com/microsoft/TypeScript/wiki/Roadmap
+
+## 各バージョンの内容
+
+- [4.3](update-typescript-4.3.md)
