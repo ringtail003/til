@@ -6,11 +6,11 @@ export class Tag {
   constructor(params: {
     label: string;
     isSelected: boolean;
-    isPersisted?: boolean;
+    isPersisted: boolean;
   }) {
     this.#label = params.label.toLowerCase();
     this.#isSelected = params.isSelected;
-    this.#isPersisted = params.isPersisted ?? true;
+    this.#isPersisted = params.isPersisted;
   }
 
   get label(): string {

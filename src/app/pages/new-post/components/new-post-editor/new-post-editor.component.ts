@@ -56,6 +56,6 @@ export class NewPostEditorComponent implements OnInit {
   }
 
   onTagSelected(tags: Tag[]): void {
-    console.log(tags.map((v) => v.label));
+    // console.log(tags.map((v) => v.label));
   }
 }

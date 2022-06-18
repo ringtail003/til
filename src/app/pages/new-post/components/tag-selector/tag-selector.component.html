@@ -1,9 +1,19 @@
 <div class="rounded-md bg-white shadow-inner shadow-gray-400">
-  <ng-container *ngIf="isSelected">
+  <form (submit)="createNewTag($event)">
+    <input
+      type="text"
+      class="w-full border-none shadow-none focus:outline-none"
+      placeholder="tag1 tag2"
+      (focus)="openDropdown()"
+      [formControl]="tagLabel"
+      #tagLabelInput
+    />
+  </form>
+
+  <ng-container *ngIf="selectedTags.length">
     <div class="flex flex-wrap gap-2 p-2">
-      <ng-container *ngFor="let tag of tags">
+      <ng-container *ngFor="let tag of selectedTags">
         <button
-          *ngIf="tag.isSelected"
           (click)="deselect(tag)"
           class="rounded-button-sm rounded-button-accent flex items-center"
         >
@@ -13,24 +23,20 @@
       </ng-container>
     </div>
   </ng-container>
-  <form (submit)="createNewTag($event)">
-    <input
-      type="text"
-      class="w-full border-none shadow-none focus:outline-none"
-      placeholder="タグ"
-      (focus)="openDropdown()"
-      [formControl]="tagLabel"
-      #tagLabelInput
-    />
-  </form>
 </div>
 
-<ng-container *ngIf="isOpen">
-  <div class="absolute my-2 h-1/2 w-1/2 rounded bg-white p-4 shadow-lg">
+<ng-container *ngIf="suggestedTags.length">
+  <div class="absolute my-2 w-1/2 rounded bg-white p-4 shadow-lg">
+    <div class="mb-2 flex items-center">
+      <p class="flex-1 text-sm font-semibold text-gray-500">Suggested tags</p>
+      <x-icon
+        class="inline-block h-6 w-6 cursor-pointer text-gray-500 hover:text-gray-700"
+        (click)="closeDropdown()"
+      ></x-icon>
+    </div>
     <div class="flex flex-wrap gap-2">
-      <ng-container *ngFor="let tag of tags">
+      <ng-container *ngFor="let tag of suggestedTags">
         <button
-          *ngIf="!tag.isSelected && tag.match(tagLabel.value)"
           (click)="select(tag)"
           class="rounded-button-sm rounded-button-accent"
         >
