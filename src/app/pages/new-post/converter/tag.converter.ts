@@ -17,7 +17,7 @@ export class TagConverter {
     const uniqueLabels = this.unique(labels);
     const sortedLabels = this.sort(uniqueLabels);
 
-    return sortedLabels.map((label) => new Tag({ label }));
+    return sortedLabels.map((label) => new Tag({ label, isSelected: false }));
   }
 
   private unique(labels: string[]): string[] {

@@ -10,7 +10,10 @@
   </div>
 
   <div class="mb-6">
-    <tag-selector [tags]="tags"></tag-selector>
+    <tag-selector
+      [tags]="tags"
+      (onSelected)="onTagSelected($event)"
+    ></tag-selector>
   </div>
 
   <div>

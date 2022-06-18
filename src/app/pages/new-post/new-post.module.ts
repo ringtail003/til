@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CreatePrButtonComponent } from 'src/app/pages/new-post/components/create-pr-button/create-pr-button.component';
 import { NewPostEditorComponent } from 'src/app/pages/new-post/components/new-post-editor/new-post-editor.component';
 import { SnippetButtonsComponent } from 'src/app/pages/new-post/components/new-post-editor/snippet-buttons/snippet-buttons.component';
@@ -21,6 +22,12 @@ const components = [
 
 @NgModule({
   declarations: components,
-  imports: [CommonModule, NewPostRoutingModule, SharedModule, IconModule],
+  imports: [
+    CommonModule,
+    NewPostRoutingModule,
+    SharedModule,
+    IconModule,
+    ReactiveFormsModule,
+  ],
 })
 export class NewPostModule {}

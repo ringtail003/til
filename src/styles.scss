@@ -53,7 +53,14 @@
   .button-md {
     @apply py-1 px-3 rounded-md;
   }
-  .button-white-outline {
+
+  .outline-button-sm {
+    @apply py-1 px-2 rounded-md text-xs;
+  }
+  .outline-button-md {
+    @apply py-1 px-3 rounded-md;
+  }
+  .outline-button-white {
     @apply border border-white text-white hover:bg-accent-500 focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-accent-500;
   }
 
@@ -70,7 +77,14 @@
       @apply rounded-r-md;
     }
   }
-  .group-button-white-outline {
+  .group-button-white {
     @apply border border-white text-white hover:bg-accent-500 focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-accent-500;
+  }
+
+  .rounded-button-sm {
+    @apply rounded-3xl text-xs shadow-sm py-1 px-3 text-center;
+  }
+  .rounded-button-accent {
+    @apply bg-accent-600 text-white hover:bg-accent-800 focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-accent-500;
   }
 }

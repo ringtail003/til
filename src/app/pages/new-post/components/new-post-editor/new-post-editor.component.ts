@@ -54,4 +54,8 @@ export class NewPostEditorComponent implements OnInit {
     this.bodyElement.nativeElement.value = body;
     this.onChangeBody.emit(body);
   }
+
+  onTagSelected(tags: Tag[]): void {
+    console.log(tags.map((v) => v.label));
+  }
 }

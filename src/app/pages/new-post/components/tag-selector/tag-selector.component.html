@@ -1,1 +1,42 @@
-<p *ngFor="let tag of tags">{{ tag.label }}</p>
+<div class="rounded-md bg-white shadow-inner shadow-gray-400">
+  <ng-container *ngIf="isSelected">
+    <div class="flex flex-wrap gap-2 p-2">
+      <ng-container *ngFor="let tag of tags">
+        <button
+          *ngIf="tag.isSelected"
+          (click)="deselect(tag)"
+          class="rounded-button-sm rounded-button-accent flex items-center"
+        >
+          <span>{{ tag.label }}</span>
+          <x-icon class="h-3 w-3"></x-icon>
+        </button>
+      </ng-container>
+    </div>
+  </ng-container>
+  <form (submit)="createNewTag($event)">
+    <input
+      type="text"
+      class="w-full border-none shadow-none focus:outline-none"
+      placeholder="タグ"
+      (focus)="openDropdown()"
+      [formControl]="tagLabel"
+      #tagLabelInput
+    />
+  </form>
+</div>
+
+<ng-container *ngIf="isOpen">
+  <div class="absolute my-2 h-1/2 w-1/2 rounded bg-white p-4 shadow-lg">
+    <div class="flex flex-wrap gap-2">
+      <ng-container *ngFor="let tag of tags">
+        <button
+          *ngIf="!tag.isSelected && tag.match(tagLabel.value)"
+          (click)="select(tag)"
+          class="rounded-button-sm rounded-button-accent"
+        >
+          {{ tag.label }}
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>
