@@ -19,6 +19,7 @@
   "private": true,
   "dependencies": {
     "@angular/cdk": "^13.3.9",
+    "@octokit/rest": "^18.12.0",
     "@scullyio/init": "^2.0.5",
     "@scullyio/ng-lib": "^2.0.2",
     "@scullyio/scully": "^2.0.3",
