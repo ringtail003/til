@@ -4,7 +4,7 @@
       type="text"
       class="w-full"
       placeholder="XXXについての学び"
-      (keyup)="onChangeTitle.emit(titleElement.value)"
+      (keyup)="changeTitle.emit(titleElement.value)"
       #titleElement
     />
   </div>
@@ -12,18 +12,22 @@
   <div class="mb-6">
     <tag-selector
       [tags]="tags"
-      (onSelected)="onTagSelected($event)"
+      (selectTag)="onSelectTag($event)"
+      (deselectTag)="onDeselectTag($event)"
+      (addTag)="onAddTag($event)"
     ></tag-selector>
   </div>
 
   <div>
     <div class="mb-2">
-      <snippet-buttons (onSelect)="onSnippetSelected($event)"></snippet-buttons>
+      <snippet-buttons
+        (selectSnippet)="onSelectSnippet($event)"
+      ></snippet-buttons>
     </div>
     <textarea
       class="h-[500px] w-full"
       placeholder="学んだこと"
-      (keyup)="onChangeBody.emit(bodyElement.value)"
+      (keyup)="changeBody.emit(bodyElement.value)"
       #bodyElement
     ></textarea>
   </div>

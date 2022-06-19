@@ -1,11 +1,11 @@
 <div class="rounded-md bg-white shadow-inner shadow-gray-400">
-  <form (submit)="createNewTag($event)">
+  <form (submit)="onSubmit($event)">
     <input
       type="text"
       class="w-full border-none shadow-none focus:outline-none"
       placeholder="tag1 tag2"
-      (focus)="openDropdown()"
-      [formControl]="tagLabel"
+      (focus)="onFocusInput()"
+      [formControl]="formControl"
       #tagLabelInput
     />
   </form>
@@ -14,35 +14,42 @@
     <div class="flex flex-wrap gap-2 p-2">
       <ng-container *ngFor="let tag of selectedTags">
         <button
-          (click)="deselect(tag)"
-          class="rounded-button-sm rounded-button-accent flex items-center"
+          (click)="onDeselect(tag)"
+          class="rounded-button-sm rounded-button-accent flex items-center gap-1"
         >
           <span>{{ tag.label }}</span>
-          <x-icon class="h-3 w-3"></x-icon>
+          <x-icon class="h-4 w-4"></x-icon>
         </button>
       </ng-container>
     </div>
   </ng-container>
 </div>
 
-<ng-container *ngIf="suggestedTags.length">
+<ng-container *ngIf="isOpenDropdown">
   <div class="absolute my-2 w-1/2 rounded bg-white p-4 shadow-lg">
     <div class="mb-2 flex items-center">
       <p class="flex-1 text-sm font-semibold text-gray-500">Suggested tags</p>
       <x-icon
         class="inline-block h-6 w-6 cursor-pointer text-gray-500 hover:text-gray-700"
-        (click)="closeDropdown()"
+        (click)="onClickCloseButton()"
       ></x-icon>
     </div>
     <div class="flex flex-wrap gap-2">
       <ng-container *ngFor="let tag of suggestedTags">
         <button
-          (click)="select(tag)"
+          (click)="onSelect(tag)"
           class="rounded-button-sm rounded-button-accent"
         >
           {{ tag.label }}
         </button>
       </ng-container>
+      <button
+        *ngIf="newTagLabel"
+        (click)="onAddTag(newTagLabel)"
+        class="rounded-button-sm rounded-button-accent"
+      >
+        新しいタグ：{{ newTagLabel }}
+      </button>
     </div>
   </div>
 </ng-container>

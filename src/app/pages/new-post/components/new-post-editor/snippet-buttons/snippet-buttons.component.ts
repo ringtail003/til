@@ -6,37 +6,37 @@ import { SnippetKey } from 'src/app/pages/new-post/components/snippet-converter.
   templateUrl: './snippet-buttons.component.html',
 })
 export class SnippetButtonsComponent implements OnInit {
-  @Output() onSelect = new EventEmitter<SnippetKey>();
+  @Output() selectSnippet = new EventEmitter<SnippetKey>();
 
   constructor() {}
 
   ngOnInit(): void {}
 
   onSelectH1(): void {
-    this.onSelect.emit('h1');
+    this.selectSnippet.emit('h1');
   }
 
   onSelectH2(): void {
-    this.onSelect.emit('h2');
+    this.selectSnippet.emit('h2');
   }
 
   onSelectH3(): void {
-    this.onSelect.emit('h3');
+    this.selectSnippet.emit('h3');
   }
 
   onSelectBold(): void {
-    this.onSelect.emit('bold');
+    this.selectSnippet.emit('bold');
   }
 
   onSelectList(): void {
-    this.onSelect.emit('list');
+    this.selectSnippet.emit('list');
   }
 
   onSelectCode(): void {
-    this.onSelect.emit('code');
+    this.selectSnippet.emit('code');
   }
 
   onSelectCodeBlock(): void {
-    this.onSelect.emit('codeBlock');
+    this.selectSnippet.emit('codeBlock');
   }
 }

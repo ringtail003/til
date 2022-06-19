@@ -1,16 +1,19 @@
 import { marked } from 'marked';
+import { Tag } from 'src/app/pages/new-post/models/tag';
 
 export class BlogPost {
   #title: string;
   #updatedAt: Date;
   #body: string;
   #bodyAsHtml: string;
+  #tags: Tag[];
 
   constructor() {
     this.#title = '';
     this.#updatedAt = new Date();
     this.#body = '';
     this.#bodyAsHtml = '';
+    this.#tags = [];
   }
 
   get title(): string {
@@ -34,5 +37,12 @@ export class BlogPost {
 
   get updatedAt(): Date {
     return new Date(this.#updatedAt.getTime());
+  }
+
+  get tags(): Tag[] {
+    return this.#tags;
+  }
+  set tags(tags: Tag[]) {
+    this.#tags = tags;
   }
 }

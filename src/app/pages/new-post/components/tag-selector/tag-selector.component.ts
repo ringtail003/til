@@ -19,90 +19,79 @@ import { Tag } from 'src/app/pages/new-post/models/tag';
 })
 export class TagSelectorComponent implements OnInit, OnChanges, OnDestroy {
   @Input() tags: Tag[] = [];
-  @Output() onSelected = new EventEmitter<Tag[]>();
+  @Output() selectTag = new EventEmitter<Tag>();
+  @Output() deselectTag = new EventEmitter<Tag>();
+  @Output() addTag = new EventEmitter<string>();
 
   @ViewChild('tagLabelInput') tagLabelInput!: ElementRef;
 
   isOpenDropdown = false;
-  tagLabel = new FormControl();
+  formControl = new FormControl();
   selectedTags: Tag[] = [];
   suggestedTags: Tag[] = [];
+  newTagLabel: string | null = null;
 
   destroy$ = new EventEmitter<void>();
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.formControl.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((value) => {
+        this.suggestedTags = this.tags
+          .filter((tag) => !tag.isSelected)
+          .filter((tag) => tag.match(value));
+
+        this.newTagLabel = value || null;
+      });
+  }
 
   ngOnChanges(): void {
-    this.tagLabel.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      this.createSuggests();
-    });
+    this.selectedTags = this.tags.filter((tag) => tag.isSelected);
+    this.suggestedTags = this.tags.filter((tag) => !tag.isSelected);
+    this.newTagLabel = null;
   }
 
   ngOnDestroy(): void {
     this.destroy$.emit();
   }
 
-  openDropdown(): void {
-    this.createSuggests();
+  onFocusInput(): void {
+    this.isOpenDropdown = true;
   }
 
-  closeDropdown(): void {
-    this.suggestedTags = [];
+  onClickCloseButton(): void {
+    this.isOpenDropdown = false;
   }
 
-  select(tag: Tag): void {
-    tag.select();
-    this.selectedTags = this.tags.filter((tag) => tag.isSelected);
-    this.createSuggests();
-    this.tagLabel.reset();
+  onSelect(tag: Tag): void {
+    this.selectTag.emit(tag);
+    this.formControl.setValue(null, { emitEvent: false });
     this.tagLabelInput.nativeElement.focus();
-    this.emit();
   }
 
-  deselect(tag: Tag): void {
-    tag.deselect();
-    this.tags = this.tags.filter((tag) => tag.isPersisted || tag.isSelected);
-    this.selectedTags = this.tags.filter((tag) => tag.isSelected);
-    this.createSuggests();
-    this.tagLabel.reset();
+  onDeselect(tag: Tag): void {
+    this.deselectTag.emit(tag);
+    this.formControl.setValue(null, { emitEvent: false });
     this.tagLabelInput.nativeElement.focus();
-    this.emit();
   }
 
-  createNewTag($event: Event): void {
+  onSubmit($event: Event): void {
     $event.preventDefault();
 
-    if (!this.tagLabel.value) {
+    if (!this.formControl.value) {
       return;
     }
 
-    const tag = new Tag({
-      label: this.tagLabel.value,
-      isSelected: true,
-      isPersisted: false,
-    });
-
-    this.tags.push(tag);
-    this.select(tag);
+    this.addTag.emit(this.formControl.value);
+    this.formControl.setValue(null, { emitEvent: false });
+    this.tagLabelInput.nativeElement.focus();
   }
 
-  private createSuggests(): void {
-    this.suggestedTags = this.tags.filter((tag) => {
-      if (!this.tagLabel.valid) {
-        return true;
-      }
-
-      if (tag.isSelected) {
-        return false;
-      }
-
-      return tag.match(this.tagLabel.value);
-    });
-  }
-
-  private emit(): void {
-    this.onSelected.emit(this.selectedTags);
+  onAddTag($event: string): void {
+    this.addTag.emit($event);
+    this.formControl.setValue(null, { emitEvent: false });
+    this.tagLabelInput.nativeElement.focus();
   }
 }

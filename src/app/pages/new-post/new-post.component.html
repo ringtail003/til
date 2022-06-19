@@ -1,7 +1,7 @@
 <div class="m-6 flex items-start justify-between">
   <a
     [routerLink]="'/'"
-    class="text-md flex cursor-pointer items-center gap-1 text-white hover:text-accent-200"
+    class="text-md hover:text-accent-200 flex cursor-pointer items-center gap-1 text-white"
   >
     <right-allow-square-icon
       class="w-5 flex-shrink-0"
@@ -18,8 +18,12 @@
     <new-post-editor
       [title]="blogPost.title"
       [body]="blogPost.body"
-      (onChangeTitle)="onChangeTitle($event)"
-      (onChangeBody)="onChangeBody($event)"
+      [tags]="blogPost.tags"
+      (changeTitle)="onChangeTitle($event)"
+      (changeBody)="onChangeBody($event)"
+      (selectTag)="onSelectTag($event)"
+      (deselectTag)="onDeselectTag($event)"
+      (addTag)="onAddTag($event)"
     ></new-post-editor>
   </div>
 

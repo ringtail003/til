@@ -12,7 +12,6 @@ import {
   SnippetKey,
 } from 'src/app/pages/new-post/components/snippet-converter.service';
 import { Tag } from 'src/app/pages/new-post/models/tag';
-import { FetchTagsUsecase } from 'src/app/pages/new-post/usecases/fetch-tags.usecase';
 
 @Component({
   selector: 'new-post-editor',
@@ -21,27 +20,21 @@ import { FetchTagsUsecase } from 'src/app/pages/new-post/usecases/fetch-tags.use
 export class NewPostEditorComponent implements OnInit {
   @Input() title!: string;
   @Input() body!: string;
+  @Input() tags!: Tag[];
 
   @ViewChild('bodyElement', { static: false }) bodyElement!: ElementRef;
 
-  @Output()
-  onChangeTitle = new EventEmitter<string>();
-  @Output() onChangeBody = new EventEmitter<string>();
+  @Output() changeTitle = new EventEmitter<string>();
+  @Output() changeBody = new EventEmitter<string>();
+  @Output() selectTag = new EventEmitter<Tag>();
+  @Output() deselectTag = new EventEmitter<Tag>();
+  @Output() addTag = new EventEmitter<string>();
 
-  tags: Tag[] = [];
+  constructor(private snippetConverter: SnippetConverter) {}
 
-  constructor(
-    private snippetConverter: SnippetConverter,
-    private fetchTagsUsecase: FetchTagsUsecase
-  ) {}
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    this.fetchTagsUsecase.exec().subscribe((tags) => {
-      this.tags = tags;
-    });
-  }
-
-  onSnippetSelected(snippetKey: SnippetKey): void {
+  onSelectSnippet(snippetKey: SnippetKey): void {
     const element = this.bodyElement.nativeElement as HTMLTextAreaElement;
 
     const body = this.snippetConverter.convert(
@@ -52,10 +45,18 @@ export class NewPostEditorComponent implements OnInit {
     );
 
     this.bodyElement.nativeElement.value = body;
-    this.onChangeBody.emit(body);
+    this.changeBody.emit(body);
   }
 
-  onTagSelected(tags: Tag[]): void {
-    // console.log(tags.map((v) => v.label));
+  onSelectTag(tag: Tag): void {
+    this.selectTag.emit(tag);
+  }
+
+  onDeselectTag(tag: Tag): void {
+    this.deselectTag.emit(tag);
+  }
+
+  onAddTag(tag: string): void {
+    this.addTag.emit(tag);
   }
 }
