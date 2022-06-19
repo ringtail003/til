@@ -22,4 +22,8 @@ https://github.com/microsoft/TypeScript/wiki/Roadmap
 
 ## 各バージョンの内容
 
-- [4.3](update-typescript-4.3.md)
+- 2021/06 [v4.3](/posts/update-typescript-4.3)
+- 2021/08 4.4
+- 2021/11 4.5
+- 2022/01 4.6
+- 2022/04 4.7

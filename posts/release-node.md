@@ -18,3 +18,7 @@ published: true
 ## ソース
 
 https://nodejs.org/ja/about/releases/
+
+- 2022/04 v18
+- 2022/10 v19
+- 2023/10 v20

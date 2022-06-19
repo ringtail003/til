@@ -29,4 +29,4 @@ https://github.com/tc39/proposals
 
 ## 各バージョンの内容
 
-- [2022-03](update-ecmascript-2022-03-21.md)
+- 2022-03 [es2022](/posts/update-ecmascript-2022-03-21.md)
