@@ -828,14 +828,10 @@ string.at(0); // "1"
 
 https://github.com/tc39/proposal-accessible-object-hasownproperty
 
-`hasOwn` `hasOwnProperty` をサポート。
+オブジェクトの `hasOwn` が定義された。
+従来の `hasOwnProperty` は外部で書き換えられるため、安全のために `Object.prototype.hasOwnProperty().call` を使うケースがあったが、これと同じことができるようになった。
 
 ```js
-
-const obj = { a: 1 };
-obj.hasOwnProperty("a");
-// true
-
 Object.hasOwn(obj, "a")
 // true
 ```
@@ -844,7 +840,7 @@ Object.hasOwn(obj, "a")
 
 https://github.com/tc39/proposal-class-static-block
 
-クラス構文の static ブロックをサポート。
+クラス構文のstaticなフィールド・メソッド・ブロックが使えるようになった。
 
 ```js
 class Foo {
